@@ -1,0 +1,21 @@
+// components/Footer/Footer.scss
+.Footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem;
+	margin-top: auto;
+	border-top: 1px solid var(--border);
+	font-size: 0.875rem;
+
+	.Footer-built {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+
+		img {
+			height: 20px;
+			display: block;
+		}
+	}
+}
