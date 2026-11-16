@@ -1,0 +1,17 @@
+.Header {
+	display: flex;
+	background-color: var(--header-bg0);
+	padding: 15px;
+	align-items: center;
+
+	.logo {
+		height: 64px;
+		width: auto;
+		display: block;
+		padding: 10px;
+
+		@media (max-width: 640px) {
+			height: 32px;
+		}
+	}
+}

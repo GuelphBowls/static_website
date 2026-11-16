@@ -1,0 +1,12 @@
+.MenuItem {
+	color: var(--text);
+	text-decoration: none;
+	padding: 7px 15px;
+	background-color: var(--header-bg1);
+	white-space: nowrap;
+
+	&:hover {
+		color: var(--accent);
+		background-color: var(--header-bg1-accent);
+	}
+}

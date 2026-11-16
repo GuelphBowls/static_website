@@ -1,0 +1,62 @@
+.MenuList {
+	position: relative;
+
+	.MenuList-label {
+		color: var(--text);
+		text-decoration: none;
+		padding: 7px 15px;
+		background-color: var(--header-bg1);
+		white-space: nowrap;
+
+		&:hover {
+			cursor: pointer;
+			color: var(--accent);
+			background-color: var(--header-bg1-accent);
+		}
+
+		.chevron {
+			display: inline-block;
+			transition: transform 0.25s;
+
+			&.open {
+				transform: rotate(180deg);
+			}
+		}
+	}
+
+	.MenuList-contents {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		z-index: 10;
+
+		display: flex;
+		flex-direction: column;
+		min-width: 100%;
+
+		margin: 5px 0px 0px 0px;
+		background: var(--header-bg1);
+		box-shadow: var(--shadow);
+
+		transform-origin: top;
+		transform: scaleY(0);
+		opacity: 0;
+		visibility: hidden;
+		transition: transform 0.25s ease, opacity 0.2s ease, visibility 0.2s;
+
+		&.open {
+			transform: scaleY(1);
+			opacity: 1;
+			visibility: visible;
+		}
+
+		.MenuItem {
+			padding: 0.5rem 1rem;
+			text-align: left;
+
+			&:hover {
+				background: var(--border);
+			}
+		}
+	}
+}
