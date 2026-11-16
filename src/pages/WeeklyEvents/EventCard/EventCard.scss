@@ -1,0 +1,50 @@
+.EventCard {
+	border: 2px solid;
+	border-radius: 10px;
+	padding: 15px;
+
+	&--blue {
+		background: linear-gradient(to top right, #8ecae6, #c4e4f5);
+		border-color: #4a90b8;
+	}
+
+	&--yellow {
+		background: linear-gradient(to top right, #f7d84a, #fff3a8);
+		border-color: #c9a227;
+	}
+
+	&--green {
+		background: linear-gradient(to top right, #7cc47f, #c2ebc0);
+		border-color: #4a9150;
+	}
+
+	&--red {
+		background: linear-gradient(to top right, #e8857a, #f7c3bc);
+		border-color: #c25a4e;
+	}
+
+	&--purple {
+		background: linear-gradient(to top right, #b39ddb, #ddd0f2);
+		border-color: #7e64b0;
+	}
+
+	&--orange {
+		background: linear-gradient(to top right, #f4a259, #fcd5ad);
+		border-color: #c97a30;
+	}
+
+	&--teal {
+		background: linear-gradient(to top right, #5fbfb3, #b4e6df);
+		border-color: #35918a;
+	}
+
+	&--pink {
+		background: linear-gradient(to top right, #f29ec4, #fbd3e6);
+		border-color: #c76a96;
+	}
+
+	.EventCard-weekday {
+		font-size: 2em;
+		font-weight: bold;
+	}
+}
