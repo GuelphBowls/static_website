@@ -1,27 +1,29 @@
+// filename: components/Header/TopNav/TopNav.tsx
 import './TopNav.scss'
 import { useState } from 'react'
 import { menu } from '@/config/menu'
-import MenuItem from '@/components/Header/MenuItem'
-import MenuList from '@/components/Header/MenuList'
+import toggle from '@/util/toggle'
+import { TopNavContext } from './TopNavContext'
+import TopNavItems from '../TopNavItems'
+import HamburgerButton from '../Hamburger'
+import Logo from '../Logo'
 
 export default function TopNav() {
 	const [activeMenu, setActiveMenu] = useState<string | null>(null)
+	const [mobileOpen, setMobileOpen] = useState(false)
+
+	// Open the given menu, or close it if it's already open
+	const toggleMenu = (label: string) => setActiveMenu(prev => prev === label ? null : label)
+	const contextState = { activeMenu, toggleMenu }
 
 	return (
-		<nav className="TopNav">
-			{menu.map(item => (
-				item.href ? (
-					<MenuItem key={item.label} label={item.label} href={item.href} />
-				) : (
-					<MenuList
-						key={item.label}
-						label={item.label}
-						menuItems={item.children ?? []}
-						open={activeMenu === item.label}
-						onToggle={() => setActiveMenu(activeMenu === item.label ? null : item.label)}
-					/>
-				)
-			))}
-		</nav>
+		<TopNavContext value={contextState}>
+			<nav className="TopNav">
+				<HamburgerButton isOpen={mobileOpen} onClick={() => setMobileOpen(toggle)} controls="topnav-items" />
+				<Logo />
+				<TopNavItems isOpen={mobileOpen} menuData={menu} />
+			</nav>
+		</TopNavContext>
 	)
 }
+

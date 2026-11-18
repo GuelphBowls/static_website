@@ -1,12 +1,36 @@
+// filename: components/Header/MenuItem/MenuItem.scss
 .MenuItem {
+	display: block;
+	width: 100%;
+	padding: 7px 15px;
+	text-align: left;
+
+	// normalize <button> vs <a>
+	appearance: none;
+	border: none;
+	margin: 0;
+	font: inherit;
+
 	color: var(--text);
 	text-decoration: none;
-	padding: 7px 15px;
 	background-color: var(--header-bg1);
 	white-space: nowrap;
+	cursor: pointer;
 
 	&:hover {
 		color: var(--accent);
 		background-color: var(--header-bg1-accent);
+	}
+}
+.MenuList {
+	position: relative;
+}
+
+.chevron {
+	display: inline-block;
+	transition: transform 0.25s;
+
+	&.open {
+		transform: rotate(180deg);
 	}
 }

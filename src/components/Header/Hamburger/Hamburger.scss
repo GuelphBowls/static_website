@@ -1,0 +1,35 @@
+// filename: components/Header/TopNav/Hamburger/Hamburger.scss
+@use "@/styles/const" as *;
+
+.Hamburger {
+	// button styling cleared in index.scss
+
+	@include desktop {
+		display: none;
+	}
+
+	@include mobile {
+		display: flex;
+	}
+
+	// Layout
+	flex-direction: column;
+	justify-content: center;
+	gap: 5px;
+	width: 44px;
+	height: 44px;
+	padding: 10px;
+
+	// outline shown only for keyboard focus, not mouse clicks.
+	&:focus-visible {
+		outline: 2px solid currentColor;
+		outline-offset: 2px;
+	}
+}
+
+.Hamburger__bar {
+	display: block; // spans have no size otherwise.
+	height: 3px;
+	background: currentColor;
+	border-radius: 2px;
+}

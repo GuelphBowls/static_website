@@ -1,3 +1,4 @@
+// filename: pages/WeeklyEvents/EventCard/EventCard.tsx
 // components/EventCard/EventCard.tsx
 import type { ReactNode } from 'react'
 import './EventCard.scss'

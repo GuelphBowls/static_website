@@ -1,3 +1,4 @@
+// filename: config/events.tsx
 // src/config/events.tsx
 import type { ReactNode } from 'react'
 

@@ -1,3 +1,4 @@
+// filename: config/menu.ts
 export type MenuData = {
     label: string;
     href?: string;

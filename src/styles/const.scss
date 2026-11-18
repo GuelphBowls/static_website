@@ -1,0 +1,10 @@
+// filename: styles/const.scss
+$mobile: 700px;
+
+@mixin mobile {
+	@media (max-width: $mobile) { @content; }
+}
+
+@mixin desktop {
+	@media (min-width: $mobile) { @content; }
+}

@@ -1,4 +1,8 @@
+// filename: components/Header/TopNav/TopNav.scss
+@use "@/styles/const" as *;
+
 .TopNav {
+	position: relative;
 	display: flex;
 	gap: .25rem;
 	align-items: center;

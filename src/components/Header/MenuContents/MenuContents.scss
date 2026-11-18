@@ -1,0 +1,45 @@
+// filename: components/Header/MenuContents/MenuContents.scss
+@use "@/styles/const" as *;
+
+.MenuContents {
+	flex-direction: column;
+	background: var(--header-bg1);
+}
+
+// Floating, animated dropdown
+@include desktop {
+	.MenuContents {
+		display: flex;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		z-index: 10;
+		min-width: 100%;
+		margin-top: 5px;
+		box-shadow: var(--shadow);
+
+		transform-origin: top;
+		transform: scaleY(0);
+		opacity: 0;
+		visibility: hidden;
+		transition: transform 0.25s ease, opacity 0.2s ease, visibility 0.2s;
+
+		&.open {
+			transform: scaleY(1);
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+}
+
+// Inline, expands in place
+@include mobile {
+	.MenuContents {
+		display: none;
+		padding-left: 16px;
+
+		&.open {
+			display: flex;
+		}
+	}
+}
