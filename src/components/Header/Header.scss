@@ -1,7 +1,20 @@
 // filename: components/Header/Header.scss
-.Header {
-	display: flex;
-	background-color: var(--header-bg0);
-	padding: 15px;
-	align-items: center;
+@use "@/styles/const" as *;
+
+@include desktop {
+	.Header {
+		display: flex;
+		background-color: var(--header-bg0);
+		padding: 15px;
+		align-items: center;
+	}
+}
+
+@include mobile {
+	.Header {
+		display: flex;
+		background-color: var(--header-bg0);
+		padding: 5px;
+		align-items: center;
+	}
 }

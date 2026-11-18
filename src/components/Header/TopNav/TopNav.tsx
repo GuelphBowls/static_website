@@ -20,8 +20,11 @@ export default function TopNav() {
 		<TopNavContext value={contextState}>
 			<nav className="TopNav">
 				<HamburgerButton isOpen={mobileOpen} onClick={() => setMobileOpen(toggle)} controls="topnav-items" />
-				<Logo />
-				<TopNavItems isOpen={mobileOpen} menuData={menu} />
+				<Logo />					
+				<div className="TopNav__vbox">
+					<div className="TopNav__title">Guelph Lawn Bowling Club</div>
+					<TopNavItems isOpen={mobileOpen} menuData={menu} />					
+				</div>
 			</nav>
 		</TopNavContext>
 	)

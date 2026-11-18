@@ -4,6 +4,20 @@
 .TopNav {
 	position: relative;
 	display: flex;
+	flex-direction: row;
 	gap: .25rem;
-	align-items: center;
+	// align-items: center;
+
+	&__title{
+		font-size: 2em;
+		font-weight: bold;
+		padding: 5px;	
+	}
+
+	&__vbox{
+		align-self: stretch;
+		display: flex;
+		flex-direction: column;
+	}
+
 }

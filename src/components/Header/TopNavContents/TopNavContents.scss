@@ -1,14 +1,14 @@
-// filename: components/Header/MenuContents/MenuContents.scss
+// filename: components/Header/TopNavContents/TopNavContents.scss
 @use "@/styles/const" as *;
 
-.MenuContents {
+.TopNavContents {
 	flex-direction: column;
 	background: var(--header-bg1);
 }
 
 // Floating, animated dropdown
 @include desktop {
-	.MenuContents {
+	.TopNavContents {
 		display: flex;
 		position: absolute;
 		top: 100%;
@@ -34,7 +34,7 @@
 
 // Inline, expands in place
 @include mobile {
-	.MenuContents {
+	.TopNavContents {
 		display: none;
 		padding-left: 16px;
 

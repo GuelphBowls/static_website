@@ -1,5 +1,5 @@
 // filename: components/Header/TopNavItems/TopNavItems.tsx
-import MenuItem from '@/components/Header/MenuItem'
+import TopNavItem from '@/components/Header/TopNavItem'
 import type { MenuData } from '@/config/menu'
 import './TopNavItems.scss'
 
@@ -14,7 +14,7 @@ export default function TopNavItems({ isOpen, menuData }: TopNavItemsProps) {
 	return (
 		<div id="topnav-items" className={itemsClassName}>
 			{menuData.map(item => (
-				<MenuItem key={item.label} label={item.label} href={item.href} contents={item.children} />
+				<TopNavItem key={item.label} label={item.label} href={item.href} contents={item.children} />
 			))}
 		</div>
 	)

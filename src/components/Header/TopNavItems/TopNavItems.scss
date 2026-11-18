@@ -1,32 +1,31 @@
 @use "@/styles/const" as *;
 
+.TopNav__items {
+	top: 100%;
+	left: 0;
+	width: 100%;
+	min-width: 220px;
+	gap: 0;
+
+	background-color: #ffc0cb;
+	box-shadow: var(--shadow);
+}
+
+@include desktop {
+	.TopNav__items {
+		display: flex;
+		flex-direction: row;
+	}
+}
+
 @include mobile {
-	.TopNav__items {		
+	.TopNav__items {
 		position: absolute;
-		top: 100%;
-		left: 0;
 		display: none;
-		width: 100%;
-		gap: 0;            // in case desktop uses a horizontal gap
-
 		flex-direction: column;
-		min-width: 220px;
-
-		background-color: #ffc0cb;
-
-		// background: var(--header-bg1);
-		box-shadow: var(--shadow);
 	}
 
 	.TopNav__items--open {
 		display: flex;
 	}
-
-	// .TopNav__items .MenuItem,
-	// .TopNav__items .MenuList-label {
-	// 	display: block;
-	// 	width: 100%;
-	// 	padding: 12px 16px;
-	// 	text-align: left;
-	// }
 }
