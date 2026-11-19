@@ -1,20 +1,26 @@
 // filename: components/Header/Header.scss
 @use "@/styles/const" as *;
 
-@include desktop {
-	.Header {
-		display: flex;
-		background-color: var(--header-bg0);
-		padding: 15px;
-		align-items: center;
-	}
+.Header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: var(--forground-zindex);
+	height: var(--header-height);
+	background-color: var(--header-bg0);
 }
 
-@include mobile {
-	.Header {
-		display: flex;
-		background-color: var(--header-bg0);
-		padding: 5px;
-		align-items: center;
+main {
+	padding-top: var(--header-height);
+}
+
+:root {
+	@include desktop {
+		--header-height: 130px;
+	}
+
+	@include mobile {
+		--header-height: 95px;
 	}
 }

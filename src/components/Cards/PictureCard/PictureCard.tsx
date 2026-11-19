@@ -1,7 +1,7 @@
 import '@/components/Cards/Cards.scss'
-import {type PictureCardData} from '@/components/Cards/CardDataTypes'
+import {type ICardContent} from '@/components/Cards/CardDataTypes'
 
-export default function PictureCard({ title, image, content, color }: PictureCardData) {
+export default function PictureCard({ title, image, content, color }: ICardContent) {
 	const className = `Card Card--${color}`
 	const imgsrc = `/src/assets/${image}`
 

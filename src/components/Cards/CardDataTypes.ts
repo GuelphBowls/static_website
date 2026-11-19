@@ -5,21 +5,10 @@ export type CardColor =
 	| 'purple' | 'orange' | 'teal' | 'pink'
 	| 'white'
 
-export interface BaseCardData {
+export interface ICardContent {
 	id: string
 	title: string
-	content: ReactNode
 	color: CardColor
+	content?: ReactNode
+	image?: string
 }
-
-export interface PictureCardData extends BaseCardData {
-	image: string
-}
-
-export interface TextCardData extends BaseCardData {
-}
-
-export type CardData = BaseCardData | PictureCardData | TextCardData
-
-export const hasImage = (d: CardData): d is PictureCardData =>
-	'image' in d && !!d.image

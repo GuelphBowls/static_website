@@ -10,10 +10,12 @@ export default function App() {
         <BrowserRouter>
             {/* Header and Footer are outside <Routes>, so they stay on screen on every page. */}
             <Header />
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/weekly" element={<WeeklyEvents />} />
-            </Routes>
+            <main>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/weekly" element={<WeeklyEvents />} />
+                </Routes>
+            </main>
             <Footer />
         </BrowserRouter>
     )

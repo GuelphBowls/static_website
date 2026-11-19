@@ -10,7 +10,7 @@ export type EventData = {
 	description: ReactNode;
 };
 
-export const events: EventData[] = [
+export const content: EventData[] = [
 	{
 		color: 'blue',
 		weekday: 'Monday',
