@@ -2,6 +2,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from '@/pages/Home'
 import WeeklyEvents from '@/pages/WeeklyEvents'
+import GroupEvents from './pages/GroupEvents'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 
@@ -14,6 +15,7 @@ export default function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/weekly" element={<WeeklyEvents />} />
+                    <Route path="/groupEvents" element={<GroupEvents />} />
                 </Routes>
             </main>
             <Footer />
