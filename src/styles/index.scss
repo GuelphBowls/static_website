@@ -24,6 +24,10 @@
     --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
     --mono: ui-monospace, Consolas, monospace;
 
+    // font
+    --card-title: bold 24px/1.45 var(--sans);
+    --card-content: 18px/1.45 var(--sans);
+
     font: 18px/1.45 var(--sans);
     letter-spacing: 0.18px;
     color-scheme: light dark;
@@ -137,3 +141,4 @@ button {
 *, *::before, *::after {
     box-sizing: border-box;
 }
+

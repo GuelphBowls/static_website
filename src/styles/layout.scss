@@ -1,0 +1,32 @@
+	
+	
+.layout{
+	&--vbox{
+		align-self: stretch;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+	
+	&--hbox{
+		align-self: stretch;
+		display: flex;
+		flex-direction: row;
+		gap: 10px;
+	}	
+}
+
+.content{
+	&--justified{
+		text-align: justify;
+	}
+	&--left{
+		text-align: left;
+	}	
+	&--center{
+		text-align: center;
+	}	
+	&--right{
+		text-align: right;
+	}			
+}
