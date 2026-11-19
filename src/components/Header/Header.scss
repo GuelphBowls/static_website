@@ -1,12 +1,12 @@
 // filename: components/Header/Header.scss
-@use "@/styles/const" as *;
+@use "@/styles/layout" as *;
 
 .Header {
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
-	z-index: var(--forground-zindex);
+	z-index: var(--foreground-zindex);
 	height: var(--header-height);
 	background-color: var(--header-bg0);
 }
