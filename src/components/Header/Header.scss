@@ -2,17 +2,11 @@
 @use "@/styles/layout" as *;
 
 .Header {
-	position: fixed;
+	position: sticky;
 	top: 0;
-	left: 0;
-	right: 0;
 	z-index: var(--foreground-zindex);
 	height: var(--header-height);
 	background-color: var(--header-bg0);
-}
-
-main {
-	padding-top: var(--header-height);
 }
 
 :root {
