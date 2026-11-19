@@ -5,6 +5,7 @@ import WeeklyEvents from '@/pages/WeeklyEvents'
 import GroupEvents from './pages/GroupEvents'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import NotFound from './pages/NotFound'
 
 export default function App() {
     return (
@@ -16,6 +17,7 @@ export default function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/weekly" element={<WeeklyEvents />} />
                     <Route path="/groupEvents" element={<GroupEvents />} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>
             <Footer />

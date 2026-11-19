@@ -3,7 +3,7 @@ import {type ICardContent} from '@/components/Cards/CardDataTypes'
 
 export default function PictureCard({ title, image, content, color }: ICardContent) {
 	const className = `Card Card--${color}`
-	const imgsrc = `/src/assets/${image}`
+	const imgsrc = `/public/${image}`
 
 	return (
 		<div className={className}>
