@@ -1,0 +1,50 @@
+@use "@/styles/_layout" as *;
+@use "@/styles/_colors" as *;
+@use 'sass:map';
+@use 'sass:list';
+
+.CardTitle {
+	&--left {
+		text-align: left;
+	}
+
+	&--right {
+		text-align: right;
+	}
+
+	&--center {
+		text-align: center;
+	}
+
+	&--bold {
+		font-weight: bold;
+	}
+
+	&--italic {
+		font-style: italic;
+	}
+
+	@each $name, $c in $card-colors {
+		@if $name !="none" and $name !="white" {
+			&--#{$name} {
+				color: list.nth($c, 4);
+			}
+		}
+	}
+
+	&--white {
+		color: #fff;
+	}
+
+	&--black {
+		color: #000;
+	}
+
+	&--large {
+		font-size: 2em;
+	}
+
+	&--small {
+		font-size: 0.75em;
+	}
+}

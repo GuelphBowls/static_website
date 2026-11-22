@@ -1,62 +1,17 @@
 // EventCard.scss
-@use "@/styles/layout" as *;
+@use "@/styles/_layout" as *;
 @use 'sass:map';
 @use 'sass:list';
 
-$card-colors: (
-	"blue": (#8ecae6, #c4e4f5, #4a90b8),
-	"yellow": (#f7d84a, #fff3a8, #c9a227),
-	"green": (#7cc47f, #c2ebc0, #4a9150),
-	"red": (#e8857a, #f7c3bc, #c25a4e),
-	"purple": (#b39ddb, #ddd0f2, #7e64b0),
-	"orange": (#f4a259, #fcd5ad, #c97a30),
-	"teal": (#5fbfb3, #b4e6df, #35918a),
-	"pink": (#f29ec4, #fbd3e6, #c76a96),
-	"white": (#dddddd, #ffffff, #666666)
-);
 
-.Card {
-	display: flex;
-	border: 2px solid var(--card-border);
-	border-radius: 10px;
-	padding: 15px;
-	background: linear-gradient(to top right, var(--card-from), var(--card-to));
 
-	@include desktop{
-		width: 75%;
-		min-height: 200px;
-	}
 
-	@include mobile{
-		width: 90%;
-		min-height: 200px;
-	}
 
-	@each $name, $c in $card-colors {
-		&--#{$name} {
-			--card-from: #{list.nth($c, 1)};
-			--card-to: #{list.nth($c, 2)};
-			--card-border: #{list.nth($c, 3)};
-		}
-	}
-	
-	.layout--vbox{
-		flex: 2;	
-	}
+// 	&__image {
+// 		width: 33%;
+// 		height: auto;
+// 		align-self: center;
+// 		flex-shrink: 0;
+// 	}
 
-	&__title {
-		font: var(--card-title)
-	}
-
-	&__content {
-		flex: 2;
-		font: var(--card-content)
-	}
-
-	&__image {		
-		width: 33%;
-		height: auto;
-		align-self: center;
-		flex-shrink: 0;		
-	}
-}
+// }

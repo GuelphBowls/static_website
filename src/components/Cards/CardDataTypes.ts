@@ -1,14 +1,27 @@
-import type { ReactNode } from "react"
 
 export type CardColor =
 	| 'blue' | 'yellow' | 'green' | 'red'
 	| 'purple' | 'orange' | 'teal' | 'pink'
-	| 'white'
+	| 'white' | 'none'
 
-export interface ICardContent {
-	id: string
-	title: string
-	color: CardColor
-	content?: ReactNode
-	image?: string
-}
+export type TitleStyles =
+	'left' | 'right' | 'center'
+	| 'blue' | 'yellow' | 'green' | 'red'
+	| 'purple' | 'orange' | 'teal' | 'pink'
+	| 'white' | 'black' | 'bold' | 'italic'
+	| 'large' | 'small'
+
+
+export const bem = (base: string, mods: readonly (string | undefined)[] = []) => {
+	const classes = [base];
+
+	for (const mod of mods) {
+		if (!mod) continue;
+
+		for (const part of mod.split(' ')) {
+			if (part) classes.push(`${base}--${part}`);
+		}
+	}
+
+	return classes.join(' ');
+};
