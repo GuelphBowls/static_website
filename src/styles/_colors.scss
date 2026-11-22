@@ -1,0 +1,14 @@
+
+// from, to, border, title
+$card-colors: (
+	"blue":   (#8ecae6, #c4e4f5, #4a90b8, #0a3b55),
+	"yellow": (#f7d84a, #fff3a8, #c9a227, #7a6110),
+	"green":  (#7cc47f, #c2ebc0, #4a9150, #2a5e2f),
+	"red":    (#e8857a, #f7c3bc, #c25a4e, #8a3328),
+	"purple": (#b39ddb, #ddd0f2, #7e64b0, #4f3a80),
+	"orange": (#f4a259, #fcd5ad, #c97a30, #8a4f15),
+	"teal":   (#5fbfb3, #b4e6df, #35918a, #1d5f59),
+	"pink":   (#f29ec4, #fbd3e6, #c76a96, #8a3a60),
+	"white":  (#dddddd, #ffffff, #666666, #1c1c1c),
+	"none":   (transparent, transparent, transparent, inherit),
+);
