@@ -8,5 +8,6 @@ export default [
 	route('sponsors', 'pages/Sponsors/Sponsors.tsx'),
     route('history', 'pages/History/History.tsx'),
     route('contact', 'pages/Contact/Contact.tsx'),
+    route('tournaments', 'pages/Tournaments/Tournaments.tsx'),
     route('*', 'pages/NotFound/NotFound.tsx'),
 ] satisfies RouteConfig
