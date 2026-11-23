@@ -4,6 +4,8 @@
 @use 'sass:list';
 
 .CardTitle {
+	text-align: center;
+
 	&--left {
 		text-align: left;
 	}

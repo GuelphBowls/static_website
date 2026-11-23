@@ -1,14 +1,20 @@
 .CardContent {
+	display: flex;
+	flex-direction: column;
+
 	&--left {
 		text-align: left;
+		align-items: left;
 	}
 
 	&--right {
 		text-align: right;
+		align-items: right;
 	}
 
 	&--center {
 		text-align: center;
+		align-items: center;
 	}
 
 	&--bold {
