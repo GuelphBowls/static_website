@@ -6,23 +6,31 @@ import TopNavContents from '@/components/Header/TopNavContents/TopNavContents'
 import LinkIcon from '@/components/LinkIcon'
 import './TopNavItem.scss'
 
-type Props = {
-	label: string;
-	href?: string;
-	contents?: MenuData[];
-};
-
-export default function TopNavItem({ label, href, contents = [] }: Props) {
+export default function TopNavItem({ label, href, contents = [], disabled = false }: MenuData) {
 	const topNav = useContext(TopNavContext)
-	const open = topNav?.activeMenu === label
+	const open = !disabled && topNav?.activeMenu === label
 
 	if (contents.length === 0) {
-		return <a className="TopNavItem" href={href}>{label}<LinkIcon/></a>
+		return (
+			<a
+				className="TopNavItem"
+				href={disabled ? undefined : href}
+				aria-disabled={disabled || undefined}
+			>
+				{label}<LinkIcon/>
+			</a>
+		)
 	}
 
 	return (
 		<div className="MenuList">
-			<button type="button" className="TopNavItem" aria-expanded={open} onClick={() => topNav?.toggleMenu(label)}>
+			<button
+				type="button"
+				className="TopNavItem"
+				disabled={disabled}
+				aria-expanded={open}
+				onClick={() => topNav?.toggleMenu(label)}
+			>
 				{label}<span className={open ? 'chevron open' : 'chevron'} aria-hidden="true">▴</span>
 			</button>
 			<TopNavContents contents={contents} open={open} />

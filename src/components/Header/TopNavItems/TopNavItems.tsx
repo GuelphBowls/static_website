@@ -14,7 +14,7 @@ export default function TopNavItems({ isOpen, menuData }: TopNavItemsProps) {
 	return (
 		<div id="topnav-items" className={itemsClassName}>
 			{menuData.map(item => (
-				<TopNavItem key={item.label} label={item.label} href={item.href} contents={item.children} />
+				<TopNavItem key={item.label} label={item.label} href={item.href} contents={item.contents} disabled={item.disabled} />
 			))}
 		</div>
 	)

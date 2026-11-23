@@ -12,6 +12,7 @@
 
     --header-bg0: rgb(187, 197, 216);
     --header-bg1: rgb(169, 190, 226);
+    --header-bg1-disabled: rgb(169, 169, 169);
     --header-bg1-accent: #f4f3ec;
 
     --border: #e5e4e7;
@@ -70,4 +71,8 @@ img, picture, video, canvas, svg {
     display: block;
     max-width: 100%;
     height: auto;
+}
+
+html {
+	scroll-padding-top: 180px; // header height + a little breathing room
 }

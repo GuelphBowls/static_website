@@ -1,3 +1,5 @@
+
+
 .TopNavItem {
 	display: inline-flex;
 	align-items: center;
@@ -10,9 +12,16 @@
 	white-space: nowrap;
 	cursor: pointer;
 
-	&:hover {
+	&:hover:not(:disabled, [aria-disabled='true']) {
 		color: var(--accent);
 		background-color: var(--header-bg1-accent);
+	}
+
+	&:disabled,
+	&[aria-disabled='true'] {
+		opacity: 0.5;
+		background-color:var(--header-bg1-disabled);
+		cursor: not-allowed;
 	}
 }
 

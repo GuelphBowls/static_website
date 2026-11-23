@@ -12,7 +12,7 @@ export default function TopNavContents({ contents, open }: TopNavContentsProps) 
 	return (
 		<div className={open ? 'TopNavContents open' : 'TopNavContents'}>
 			{contents.map(item => (
-				<TopNavItem key={item.label} label={item.label} href={item.href} contents={item.children} />
+				<TopNavItem key={item.label} label={item.label} href={item.href} contents={item.contents} disabled={item.disabled} />
 			))}
 		</div>
 	)

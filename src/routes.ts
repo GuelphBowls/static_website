@@ -11,5 +11,7 @@ export default [
     route('tournaments', 'pages/Tournaments/Tournaments.tsx'),
     route('district', 'pages/District/District.tsx'),
     route('executive', 'pages/Executive/Executive.tsx'),
+    route('bylaws', 'pages/ByLaws/ByLaws.tsx'),
+    route('join', 'pages/Join/Join.tsx'),
     route('*', 'pages/NotFound/NotFound.tsx'),
 ] satisfies RouteConfig

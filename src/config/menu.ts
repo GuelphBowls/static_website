@@ -2,7 +2,8 @@
 export type MenuData = {
     label: string;
     href?: string;
-    children?: MenuData[];
+    disabled?: boolean;
+    contents?: MenuData[];
 }
 
 export const menu: MenuData[] = [
@@ -10,14 +11,14 @@ export const menu: MenuData[] = [
     { label: 'Sponsors', href: '/sponsors' },
     {
         label: 'About',
-        children: [
+        contents: [
             { label: 'History', href: '/history' },
             { label: 'Contact', href: '/contact' },
         ]
     },
     {
         label: 'Schedule',
-        children: [            
+        contents: [            
             { label: 'Weekly Activities', href: '/weekly' },
             { label: 'Tournaments', href: '/tournaments' },
             { label: 'District', href: '/district' },
@@ -26,7 +27,8 @@ export const menu: MenuData[] = [
     },
     {
         label: 'Bowling Basics',
-        children: [
+        disabled: true,
+        contents: [
             { label: 'Learn to Play', href: '/learn' },
             { label: 'Etiquette', href: '/etiquette' },
             { label: 'Rules', href: '/rules' },
@@ -34,7 +36,7 @@ export const menu: MenuData[] = [
     },
     {
         label: 'Membership',
-        children: [
+        contents: [
             { label: 'Join', href: '/join' },
             { label: 'Executive', href: '/executive' },
             { label: 'By-Laws', href: '/bylaws' },
@@ -42,7 +44,8 @@ export const menu: MenuData[] = [
     },
     {
         label: 'Gallery',
-        children: [
+        disabled: true,
+        contents: [
             { label: '2026', href: '/gallery2026' },
             { label: '2025', href: '/gallery2025' },
             { label: 'History', href: '/galleryHistory' },

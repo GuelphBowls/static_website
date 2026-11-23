@@ -1,0 +1,20 @@
+.Join {
+	&__price {
+		margin: 0;
+		font-size: 1.5rem;
+		font-weight: bold;
+	}
+
+	&__note {
+		font-size: 0.9rem;
+		font-style: italic;
+	}
+
+	&__forms {
+		padding-left: 1.25rem;
+	}
+
+	a.center{
+		text-align: center;
+	}
+}
