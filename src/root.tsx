@@ -6,9 +6,9 @@ import '@/styles/index.scss'
 
 export function Layout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en">                                      {/* <html lang="en"> */}
+        <html lang="en">                                      
             <head>
-                <meta charSet="UTF-8" />                      {/* <meta charset> */}
+                <meta charSet="UTF-8" />                      
                 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <title>bowling_static</title>
@@ -16,9 +16,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <Links />
             </head>
             <body>
-                {children}                                    {/* replaces <div id="root"> */}
+                {children}                                    
                 <ScrollRestoration />
-                <Scripts />                                   {/* replaces <script src="/src/main.tsx"> */}
+                <Scripts />                                   
             </body>
         </html>
     )

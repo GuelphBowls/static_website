@@ -1,8 +1,31 @@
-// filename: pages/Home/Home.tsx
-
-import CardContainer from "@/components/Cards/CardContainer";
-import { content } from "@/content/home";
+// src/pages/Home/Home.tsx
+import { Card, CardTitle, CardContent } from '@/components/Cards'
+import bowls from '@/assets/bowls.avif'
+import CardContainer from '@/components/Cards/CardContainer'
 
 export default function Home() {
-	return <CardContainer content={content}/>
+	return (
+		<div className="Home">
+			<CardContainer>
+			<Card color="blue">
+				<CardTitle styles='bold large'>Welcome to the Guelph Lawn Bowling Club!</CardTitle>
+				<CardContent>
+					<div className="content--left">
+						We’re 188 years young and going strong! The Guelph Lawn Bowling Club was established in 1838 and new members are always welcome to join the fun in the heart of the Royal City. We’re the second oldest recreational sport club in Guelph (curling is the oldest).
+						<br /><br />
+						<a href="https://www.cbc.ca/news/canada/kitchener-waterloo/guelph-lawn-bowling-club-lawn-bowling-beginner-1.6919931">
+							Check out an article about our club from the CBC
+						</a>
+					</div>
+				</CardContent>
+			</Card>
+			<Card color="green">
+				<CardTitle styles='bold large'>We reopen May 2027!</CardTitle>
+				<CardContent>
+					<img src={bowls} alt="Lawn bowls on the green" />
+				</CardContent>
+			</Card>
+			</CardContainer>
+		</div>
+	)
 }
