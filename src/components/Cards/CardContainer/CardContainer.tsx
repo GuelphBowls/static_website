@@ -1,5 +1,10 @@
+import type { ReactNode } from 'react';
 import './CardContainer.scss'
 
-export default function CardContainer() {
-	return <div className="CardContainer"></div>
+type CardContainerProps = {
+	children?: ReactNode;
+};
+
+export default function CardContainer({children}: CardContainerProps) {
+	return <div className="CardContainer">{children}</div>
 }

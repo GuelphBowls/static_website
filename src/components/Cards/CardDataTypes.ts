@@ -11,6 +11,8 @@ export type TitleStyles =
 	| 'white' | 'black' | 'bold' | 'italic'
 	| 'large' | 'small'
 
+export type ContentStyles = 
+	'left' | 'right' | 'center' | 'justified'
 
 export const bem = (base: string, mods: readonly (string | undefined)[] = []) => {
 	const classes = [base];

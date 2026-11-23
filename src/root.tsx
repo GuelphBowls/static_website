@@ -26,12 +26,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function Root() {
     return (
-        <>
+        <div id="root">
             <Header />
             <main>
                 <Outlet />
             </main>
             <Footer />
-        </>
+        </div>
     )
 }
