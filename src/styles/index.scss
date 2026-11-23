@@ -42,9 +42,6 @@
 
 *, *::before, *::after {
     box-sizing: border-box;
-}
-
-body {
     margin: 0;
 }
 
@@ -58,10 +55,6 @@ body {
     background-color: var(--content-bg);
 }
 
-p {
-    margin: 0;
-}
-
 // clear the default button styling
 button {
     appearance: none;
@@ -71,4 +64,10 @@ button {
     color: inherit;
     font: inherit;
     cursor: pointer;
+}
+
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
 }
