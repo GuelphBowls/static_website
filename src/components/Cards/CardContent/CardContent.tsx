@@ -3,8 +3,8 @@ import './CardContent.scss'
 import { bem } from '../CardDataTypes';
 
 type CardContentProps = {
-	children?: ReactNode;
 	styles?: string
+	children?: ReactNode;
 }
 
 export default function CardContent({styles, children}: CardContentProps) {

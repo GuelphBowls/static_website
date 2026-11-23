@@ -10,5 +10,6 @@ export default [
     route('contact', 'pages/Contact/Contact.tsx'),
     route('tournaments', 'pages/Tournaments/Tournaments.tsx'),
     route('district', 'pages/District/District.tsx'),
+    route('executive', 'pages/Executive/Executive.tsx'),
     route('*', 'pages/NotFound/NotFound.tsx'),
 ] satisfies RouteConfig

@@ -1,15 +1,16 @@
 import type { ReactNode } from 'react';
-import './Card.scss';
 import { bem, type CardColor } from '@/components/Cards/CardDataTypes';
 import { CardColorContext } from '@/components/Cards/CardColorContext'
+import './Card.scss';
 
 type CardProps = {
-	children?: ReactNode;
 	color?: CardColor
+	styles?: string
+	children?: ReactNode;
 };
 
-export default function Card({ color = 'blue', children }: CardProps) {
-	const className = bem('Card', [color])
+export default function Card({ color = 'blue', styles, children }: CardProps) {
+	const className = bem('Card', [color, styles])
 
 	return (
 		<CardColorContext value={color}>

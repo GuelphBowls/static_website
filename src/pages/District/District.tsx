@@ -1,5 +1,4 @@
 import { Card, CardTitle, CardContent, CardContainer } from '@/components/Cards'
-import './District.scss'
 
 export default function District() {
 	return (
