@@ -1,0 +1,1 @@
+import{o as e,t}from"./jsx-runtime-BKd12lFt.js";var n=t(),r=e(function(){return(0,n.jsx)(`div`,{className:`NotFound`,children:`404 Page Not Found`})});export{r as default};
