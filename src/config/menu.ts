@@ -17,10 +17,11 @@ export const menu: MenuData[] = [
     },
     {
         label: 'Schedule',
-        children: [
+        children: [            
             { label: 'Weekly Activities', href: '/weekly' },
             { label: 'Tournaments', href: '/tournaments' },
             { label: 'District', href: '/district' },
+            { label: 'Group Events', href: '/group' },
         ]
     },
     {
