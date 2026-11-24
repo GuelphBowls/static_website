@@ -32,8 +32,6 @@ export default function History() {
 					<p>The Guelph Lawn Bowling Club was incorporated in 2001 as a non-profit organization.</p>
 				</div>
 			</div>
-
-			<footer>© 2025 by Guelph Lawn Bowling Club.</footer>
 		</section>
 	)
 }
