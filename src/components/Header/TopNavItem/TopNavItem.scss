@@ -1,27 +1,26 @@
 // filename: components/Header/TopNavItem/TopNavItem.scss
 
-
 .TopNavItem {
 	display: inline-flex;
 	align-items: center;
 	width: 100%;
 	padding: 7px 15px;
 
-	color: var(--text);
+	color: var(--text-fg);
 	text-decoration: none;
-	background-color: var(--header-bg1);
+	background-color: var(--header-content-bg);
 	white-space: nowrap;
 	cursor: pointer;
 
 	&:hover:not(:disabled, [aria-disabled='true']) {
-		color: var(--accent);
-		background-color: var(--header-bg1-accent);
+		color: var(--header-content-fg__highlight);
+		background-color: var(--header-content-bg__highlight);
 	}
 
 	&:disabled,
 	&[aria-disabled='true'] {
 		opacity: 0.5;
-		background-color:var(--header-bg1-disabled);
+		background-color:var(--header-content-bg-disabled);
 		cursor: not-allowed;
 	}
 }

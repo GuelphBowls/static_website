@@ -5,33 +5,32 @@
 :root {
     --root-width: 1000px;
     --foreground-zindex: 100;
+    --header-height: 160px;
 
-    --text: #000000;
+    --text-fg: #000000;
+    --negative-space-bg: rgb(230, 230, 235);
+    --root-bg: #f5f5f5;
+    --header-bg: rgb(187, 197, 216);
+    --header-content-bg: rgb(169, 190, 226);
+    --header-content-bg-disabled: rgb(169, 169, 169);
+    --header-content-bg__highlight: #f4f3ec;
+    --header-content-fg__highlight: #aa3bff;
+    --root-border: #e5e4e7;
 
-    --bg-L0: rgb(230, 230, 235);
-    --content-bg: rgb(245, 245, 245);
-
-    --header-bg0: rgb(187, 197, 216);
-    --header-bg1: rgb(169, 190, 226);
-    --header-bg1-disabled: rgb(169, 169, 169);
-    --header-bg1-accent: #f4f3ec;
-
-    --border: #e5e4e7;
-    --accent: #aa3bff;
     --shadow:
         rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
     --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
 
     // font
-    --card-title: bold 24px/1.45 var(--sans);
-    --card-content: 18px/1.45 var(--sans);
+    --card-title: bold 1.333rem/1.45 var(--sans);
+    --card-content: 1rem/1.45 var(--sans);
+    letter-spacing: 0.01em;
 
     font: 18px/1.45 var(--sans);
-    letter-spacing: 0.18px;
     color-scheme: light;
-    color: var(--text);
-    background: var(--bg-L0);
+    color: var(--text-fg);
+    background: var(--negative-space-bg);
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -54,7 +53,7 @@
     min-height: 100svh;
     display: flex;
     flex-direction: column;
-    background-color: var(--content-bg);
+    background-color: var(--root-bg);
 }
 
 // clear the default button styling
@@ -75,5 +74,5 @@ img, picture, video, canvas, svg {
 }
 
 html {
-	scroll-padding-top: 180px; // header height + a little breathing room
+    scroll-padding-top: 180px; // header height + a little breathing room
 }
