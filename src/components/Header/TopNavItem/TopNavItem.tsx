@@ -3,7 +3,6 @@ import { useContext } from 'react'
 import type { MenuData } from '@/config/menu'
 import { TopNavContext } from '@/components/Header/TopNav/TopNavContext'
 import TopNavContents from '@/components/Header/TopNavContents'
-import LinkIcon from '@/components/LinkIcon'
 import './TopNavItem.scss'
 
 export default function TopNavItem({ label, href, contents = [], disabled = false }: MenuData) {
@@ -17,7 +16,7 @@ export default function TopNavItem({ label, href, contents = [], disabled = fals
 				href={disabled ? undefined : href}
 				aria-disabled={disabled || undefined}
 			>
-				{label}<LinkIcon/>
+				{label}
 			</a>
 		)
 	}
