@@ -1,3 +1,4 @@
+// filename: components/Header/Logo/Logo.tsx
 import logo from '@/assets/logo.avif';
 import './Logo.scss'
 

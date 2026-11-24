@@ -1,4 +1,4 @@
-// filename: components/Header/TopNav/TopNavContext.ts
+// filename: components/Header/TopNav/TopNavContext.tsx
 import { createContext } from 'react'
 
 export type TopNavState = {

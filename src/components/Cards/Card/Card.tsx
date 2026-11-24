@@ -1,5 +1,7 @@
+// filename: components/Cards/Card/Card.tsx
 import type { ReactNode } from 'react';
-import { bem, type CardColor } from '@/components/Cards/CardDataTypes';
+import {type CardColor } from '@/components/Cards/CardDataTypes';
+import bem from '@/util/bem'
 import { CardColorContext } from '@/components/Cards/CardColorContext'
 import './Card.scss';
 
@@ -15,7 +17,7 @@ export default function Card({ color = 'blue', styles, children }: CardProps) {
 	return (
 		<CardColorContext value={color}>
 			<div className={className}>
-				<div className="layout--vbox">
+				<div className="Layout--vbox">
 					{children}
 				</div>
 			</div>

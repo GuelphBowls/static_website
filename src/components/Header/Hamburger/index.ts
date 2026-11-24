@@ -1,2 +1,2 @@
-// filename: components/Header/TopNav/Hamburger/index.ts
+// filename: components/Header/Hamburger/index.ts
 export { default } from './Hamburger'

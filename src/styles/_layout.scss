@@ -1,14 +1,5 @@
-$mobile: 700px;
-
-@mixin mobile {
-	@media (max-width: $mobile) { @content; }
-}
-
-@mixin desktop {
-	@media (min-width: $mobile) { @content; }
-}	
-	
-.layout{
+// filename: styles/_layout.scss
+.Layout{
 	&--vbox{
 		align-self: stretch;
 		display: flex;

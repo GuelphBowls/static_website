@@ -1,3 +1,4 @@
+// filename: components/Cards/index.ts
 import Card from "./Card";
 import CardTitle from "./CardTitle";
 import CardContent from "./CardContent";

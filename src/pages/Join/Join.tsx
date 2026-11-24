@@ -1,3 +1,4 @@
+// filename: pages/Join/Join.tsx
 import { Card, CardTitle, CardContent, CardContainer } from '@/components/Cards'
 import membershipForm from '@/assets/membership_form.pdf'
 import waiver from '@/assets/waiver_adult.pdf'

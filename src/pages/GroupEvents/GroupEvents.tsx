@@ -1,4 +1,4 @@
-// src/content/groupEvents.tsx
+// filename: pages/GroupEvents/GroupEvents.tsx
 import { Card, CardTitle, CardContent, CardContainer } from '@/components/Cards'
 import clubhouse from '@/assets/clubhouse.avif'
 

@@ -1,0 +1,1 @@
+import{o as e,t}from"./jsx-runtime-BKd12lFt.js";import{i as n,n as r,r as i,t as a}from"./Cards-CCudXcij.js";var o=t(),s=e(function(){return(0,o.jsx)(a,{children:(0,o.jsxs)(n,{color:`blue`,children:[(0,o.jsx)(i,{styles:`bold large`,children:`District Events`}),(0,o.jsx)(r,{styles:`center`,children:`Stay tuned for the 2027 District 7 schedule.`})]})})});export{s as default};

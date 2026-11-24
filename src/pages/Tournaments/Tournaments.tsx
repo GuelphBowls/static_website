@@ -1,4 +1,4 @@
-// src/content/tournaments.tsx
+// filename: pages/Tournaments/Tournaments.tsx
 import { Card, CardTitle, CardContent, CardContainer } from '@/components/Cards'
 
 export default function Tournaments() {

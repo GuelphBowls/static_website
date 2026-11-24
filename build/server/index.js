@@ -73,7 +73,7 @@ var menu = [
 	},
 	{
 		label: "About",
-		children: [{
+		contents: [{
 			label: "History",
 			href: "/history"
 		}, {
@@ -83,7 +83,7 @@ var menu = [
 	},
 	{
 		label: "Schedule",
-		children: [
+		contents: [
 			{
 				label: "Weekly Activities",
 				href: "/weekly"
@@ -104,7 +104,8 @@ var menu = [
 	},
 	{
 		label: "Bowling Basics",
-		children: [
+		disabled: true,
+		contents: [
 			{
 				label: "Learn to Play",
 				href: "/learn"
@@ -121,7 +122,7 @@ var menu = [
 	},
 	{
 		label: "Membership",
-		children: [
+		contents: [
 			{
 				label: "Join",
 				href: "/join"
@@ -138,7 +139,8 @@ var menu = [
 	},
 	{
 		label: "Gallery",
-		children: [
+		disabled: true,
+		contents: [
 			{
 				label: "2026",
 				href: "/gallery2026"
@@ -167,7 +169,8 @@ function TopNavContents({ contents, open }) {
 		children: contents.map((item) => /* @__PURE__ */ jsx(TopNavItem, {
 			label: item.label,
 			href: item.href,
-			contents: item.children
+			contents: item.contents,
+			disabled: item.disabled
 		}, item.label))
 	});
 }
@@ -188,12 +191,13 @@ function LinkIcon({ size = 16 }) {
 	});
 }
 // src/components/Header/TopNavItem/TopNavItem.tsx
-function TopNavItem({ label, href, contents = [] }) {
+function TopNavItem({ label, href, contents = [], disabled = false }) {
 	const topNav = useContext(TopNavContext);
-	const open = topNav?.activeMenu === label;
+	const open = !disabled && topNav?.activeMenu === label;
 	if (contents.length === 0) return /* @__PURE__ */ jsxs("a", {
 		className: "TopNavItem",
-		href,
+		href: disabled ? void 0 : href,
+		"aria-disabled": disabled || void 0,
 		children: [label, /* @__PURE__ */ jsx(LinkIcon, {})]
 	});
 	return /* @__PURE__ */ jsxs("div", {
@@ -201,6 +205,7 @@ function TopNavItem({ label, href, contents = [] }) {
 		children: [/* @__PURE__ */ jsxs("button", {
 			type: "button",
 			className: "TopNavItem",
+			disabled,
 			"aria-expanded": open,
 			onClick: () => topNav?.toggleMenu(label),
 			children: [label, /* @__PURE__ */ jsx("span", {
@@ -222,7 +227,8 @@ function TopNavItems({ isOpen, menuData }) {
 		children: menuData.map((item) => /* @__PURE__ */ jsx(TopNavItem, {
 			label: item.label,
 			href: item.href,
-			contents: item.children
+			contents: item.contents,
+			disabled: item.disabled
 		}, item.label))
 	});
 }
@@ -369,27 +375,29 @@ var root_default = UNSAFE_withComponentProps(function Root() {
 		]
 	});
 });
-// src/components/Cards/CardDataTypes.ts
-var bem = (base, mods = []) => {
+// src/assets/bowls.avif
+var bowls_default = "/assets/bowls-BCArHJBW.avif";
+// src/util/bem.ts
+function bem(base, mods = []) {
 	const classes = [base];
 	for (const mod of mods) {
 		if (!mod) continue;
 		for (const part of mod.split(" ")) if (part) classes.push(`${base}--${part}`);
 	}
 	return classes.join(" ");
-};
+}
 // src/components/Cards/CardColorContext/CardColorContext.tsx
 var CardColorContext = createContext(void 0);
 var useCardColor = () => useContext(CardColorContext);
 // src/components/Cards/Card/Card.tsx
-function Card({ color = "blue", children }) {
-	const className = bem("Card", [color]);
+function Card({ color = "blue", styles, children }) {
+	const className = bem("Card", [color, styles]);
 	return /* @__PURE__ */ jsx(CardColorContext, {
 		value: color,
 		children: /* @__PURE__ */ jsx("div", {
 			className,
 			children: /* @__PURE__ */ jsx("div", {
-				className: "layout--vbox",
+				className: "Layout--vbox",
 				children
 			})
 		})
@@ -418,8 +426,6 @@ function CardContainer({ children }) {
 		children
 	});
 }
-// src/assets/bowls.avif
-var bowls_default = "/assets/bowls-BCArHJBW.avif";
 // src/pages/Home/Home.tsx
 var Home_exports = /* @__PURE__ */ __exportAll({ default: () => Home_default });
 var Home_default = UNSAFE_withComponentProps(function Home() {
@@ -430,8 +436,8 @@ var Home_default = UNSAFE_withComponentProps(function Home() {
 			children: [/* @__PURE__ */ jsx(CardTitle, {
 				styles: "bold large",
 				children: "Welcome to the Guelph Lawn Bowling Club!"
-			}), /* @__PURE__ */ jsx(CardContent, { children: /* @__PURE__ */ jsxs("div", {
-				className: "content--left",
+			}), /* @__PURE__ */ jsxs(CardContent, {
+				styles: "left",
 				children: [
 					"We’re 188 years young and going strong! The Guelph Lawn Bowling Club was established in 1838 and new members are always welcome to join the fun in the heart of the Royal City. We’re the second oldest recreational sport club in Guelph (curling is the oldest).",
 					/* @__PURE__ */ jsx("br", {}),
@@ -441,7 +447,7 @@ var Home_default = UNSAFE_withComponentProps(function Home() {
 						children: "Check out an article about our club from the CBC"
 					})
 				]
-			}) })]
+			})]
 		}), /* @__PURE__ */ jsxs(Card, {
 			color: "green",
 			children: [/* @__PURE__ */ jsx(CardTitle, {
@@ -684,7 +690,7 @@ var GroupEvents_default = UNSAFE_withComponentProps(function GroupEvents() {
 });
 // src/pages/Sponsors/Sponsors.tsx
 var Sponsors_exports = /* @__PURE__ */ __exportAll({ default: () => Sponsors_default });
-var Sponsors_default = UNSAFE_withComponentProps(function GroupEvents() {
+var Sponsors_default = UNSAFE_withComponentProps(function Sponsors() {
 	return /* @__PURE__ */ jsxs(CardContainer, { children: [
 		/* @__PURE__ */ jsxs(Card, {
 			color: "blue",
@@ -698,7 +704,7 @@ var Sponsors_default = UNSAFE_withComponentProps(function GroupEvents() {
 					children: /* @__PURE__ */ jsxs(CardContent, {
 						styles: "center",
 						children: [/* @__PURE__ */ jsx("h2", { children: "2026 Sponsors" }), /* @__PURE__ */ jsxs("ul", {
-							className: "Align-left",
+							className: "Align--left",
 							children: [
 								/* @__PURE__ */ jsx("li", {
 									className: "Align-left",
@@ -739,7 +745,7 @@ var Sponsors_default = UNSAFE_withComponentProps(function GroupEvents() {
 					/* @__PURE__ */ jsx("p", { children: "We have affordable sponsorship categories that give you local publicity. Show your community spirit. Since 1838 we’ve been a part of our community. Sponsorship helps us to continue providing a sport enjoyed by all ages and abilities. Please support local lawn bowling." }),
 					/* @__PURE__ */ jsx("br", {}),
 					/* @__PURE__ */ jsx("a", {
-						href: "https://www.guelphlawnbowling.com/contact",
+						href: "/contact",
 						children: "Contact us for more information."
 					})
 				]
@@ -948,6 +954,1095 @@ var Tournaments_default = UNSAFE_withComponentProps(function Tournaments() {
 		})
 	] });
 });
+// src/pages/District/District.tsx
+var District_exports = /* @__PURE__ */ __exportAll({ default: () => District_default });
+var District_default = UNSAFE_withComponentProps(function District() {
+	return /* @__PURE__ */ jsx(CardContainer, { children: /* @__PURE__ */ jsxs(Card, {
+		color: "blue",
+		children: [/* @__PURE__ */ jsx(CardTitle, {
+			styles: "bold large",
+			children: "District Events"
+		}), /* @__PURE__ */ jsx(CardContent, {
+			styles: "center",
+			children: "Stay tuned for the 2027 District 7 schedule."
+		})]
+	}) });
+});
+// src/pages/Executive/Executive.tsx
+var Executive_exports = /* @__PURE__ */ __exportAll({ default: () => Executive_default });
+var Executive_default = UNSAFE_withComponentProps(function Executive() {
+	return /* @__PURE__ */ jsx(CardContainer, { children: /* @__PURE__ */ jsxs(Card, {
+		color: "blue",
+		children: [/* @__PURE__ */ jsx(CardTitle, {
+			styles: "bold large",
+			children: "2026/2027 Executive"
+		}), /* @__PURE__ */ jsx(CardContent, {
+			styles: "center",
+			children: /* @__PURE__ */ jsxs(CardContainer, { children: [
+				/* @__PURE__ */ jsxs(Card, {
+					color: "blue",
+					styles: "fit frost",
+					children: [/* @__PURE__ */ jsx(CardTitle, {
+						styles: "bold",
+						children: "President"
+					}), /* @__PURE__ */ jsxs(CardContent, {
+						styles: "center",
+						children: [/* @__PURE__ */ jsx("p", { children: "Blake Skinner" }), /* @__PURE__ */ jsx("p", { children: "GuelphLBC@gmail.com" })]
+					})]
+				}),
+				/* @__PURE__ */ jsxs(Card, {
+					color: "blue",
+					styles: "fit frost",
+					children: [/* @__PURE__ */ jsx(CardTitle, {
+						styles: "bold",
+						children: "Vice President"
+					}), /* @__PURE__ */ jsxs(CardContent, {
+						styles: "center",
+						children: [/* @__PURE__ */ jsx("p", { children: "Emily Gibson" }), /* @__PURE__ */ jsx("p", { children: "glbcvp@gmail.com" })]
+					})]
+				}),
+				/* @__PURE__ */ jsxs(Card, {
+					color: "blue",
+					styles: "fit frost",
+					children: [/* @__PURE__ */ jsx(CardTitle, {
+						styles: "bold",
+						children: "Secretary"
+					}), /* @__PURE__ */ jsxs(CardContent, {
+						styles: "center",
+						children: [/* @__PURE__ */ jsx("p", { children: "Blake Grills" }), /* @__PURE__ */ jsx("p", { children: "GuelphLBCsecretary@gmail.com " })]
+					})]
+				}),
+				/* @__PURE__ */ jsxs(Card, {
+					color: "blue",
+					styles: "fit frost",
+					children: [/* @__PURE__ */ jsx(CardTitle, {
+						styles: "bold",
+						children: "Membership Secretary"
+					}), /* @__PURE__ */ jsx(CardContent, {
+						styles: "center",
+						children: /* @__PURE__ */ jsx("p", { children: "Barbara Chillingsworth" })
+					})]
+				}),
+				/* @__PURE__ */ jsxs(Card, {
+					color: "blue",
+					styles: "fit frost",
+					children: [/* @__PURE__ */ jsx(CardTitle, {
+						styles: "bold",
+						children: "Directors"
+					}), /* @__PURE__ */ jsxs(CardContent, {
+						styles: "center",
+						children: [
+							/* @__PURE__ */ jsx("p", { children: "Ed Armstrong" }),
+							/* @__PURE__ */ jsx("p", { children: "Jamie Ford" }),
+							/* @__PURE__ */ jsx("p", { children: "Kaeli Sweigard" })
+						]
+					})]
+				})
+			] })
+		})]
+	}) });
+});
+// src/pages/ByLaws/ByLaws.tsx
+var ByLaws_exports = /* @__PURE__ */ __exportAll({ default: () => ByLaws_default });
+var ByLaws_default = UNSAFE_withComponentProps(function ByLaws() {
+	return /* @__PURE__ */ jsxs("article", {
+		className: "ByLaws",
+		children: [
+			/* @__PURE__ */ jsxs("header", { children: [/* @__PURE__ */ jsx("h1", { children: "By-Laws" }), /* @__PURE__ */ jsx("p", {
+				className: "ByLaws__meta",
+				children: "Approved May 13th, 2023"
+			})] }),
+			/* @__PURE__ */ jsxs("section", {
+				className: "ByLaws__mission",
+				children: [
+					/* @__PURE__ */ jsx("h2", { children: "Mission statement" }),
+					/* @__PURE__ */ jsx("p", { children: "To administer, co-ordinate, encourage, establish, operate and promote the operation of the Guelph Lawn Bowling Club Inc. for the purpose of fostering goodwill and sportsmanship amongst its members." }),
+					/* @__PURE__ */ jsx("p", { children: "To provide the opportunity for bowlers of all ages in Guelph and surrounding districts to participate at their level of ability and interest." })
+				]
+			}),
+			/* @__PURE__ */ jsxs("nav", {
+				className: "ByLaws__toc",
+				"aria-label": "By-law contents",
+				children: [
+					/* @__PURE__ */ jsx("h2", { children: "Contents" }),
+					/* @__PURE__ */ jsx("h3", { children: "By-Law 1" }),
+					/* @__PURE__ */ jsxs("ol", { children: [
+						/* @__PURE__ */ jsx("li", {
+							value: 1,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-1",
+								children: "Name"
+							})
+						}),
+						/* @__PURE__ */ jsx("li", {
+							value: 2,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-2",
+								children: "Head Office"
+							})
+						}),
+						/* @__PURE__ */ jsx("li", {
+							value: 3,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-3",
+								children: "Purpose"
+							})
+						}),
+						/* @__PURE__ */ jsx("li", {
+							value: 4,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-4",
+								children: "Affiliation"
+							})
+						}),
+						/* @__PURE__ */ jsx("li", {
+							value: 5,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-5",
+								children: "Membership"
+							})
+						}),
+						/* @__PURE__ */ jsx("li", {
+							value: 6,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-6",
+								children: "Harassment/Abuse"
+							})
+						}),
+						/* @__PURE__ */ jsx("li", {
+							value: 7,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-7",
+								children: "Revocation of Membership"
+							})
+						}),
+						/* @__PURE__ */ jsx("li", {
+							value: 8,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-8",
+								children: "Alcoholic Beverages"
+							})
+						}),
+						/* @__PURE__ */ jsx("li", {
+							value: 9,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-9",
+								children: "Board of Directors"
+							})
+						}),
+						/* @__PURE__ */ jsx("li", {
+							value: 10,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-10",
+								children: "Board Meetings"
+							})
+						}),
+						/* @__PURE__ */ jsx("li", {
+							value: 11,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-11",
+								children: "Duties of Office Holders"
+							})
+						}),
+						/* @__PURE__ */ jsx("li", {
+							value: 12,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-12",
+								children: "Authority"
+							})
+						}),
+						/* @__PURE__ */ jsx("li", {
+							value: 13,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-13",
+								children: "Signing Officers"
+							})
+						}),
+						/* @__PURE__ */ jsx("li", {
+							value: 14,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-14",
+								children: "Remuneration of Officers, Directors, and Chairpersons"
+							})
+						}),
+						/* @__PURE__ */ jsx("li", {
+							value: 15,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-15",
+								children: "Committees"
+							})
+						}),
+						/* @__PURE__ */ jsx("li", {
+							value: 16,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-16",
+								children: "General Meeting"
+							})
+						}),
+						/* @__PURE__ */ jsx("li", {
+							value: 17,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-17",
+								children: "Extraordinary Expense"
+							})
+						}),
+						/* @__PURE__ */ jsx("li", {
+							value: 18,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-18",
+								children: "Amendments"
+							})
+						}),
+						/* @__PURE__ */ jsx("li", {
+							value: 19,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-19",
+								children: "Fiscal Year"
+							})
+						}),
+						/* @__PURE__ */ jsx("li", {
+							value: 20,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-20",
+								children: "Reserve Fund"
+							})
+						}),
+						/* @__PURE__ */ jsx("li", {
+							value: 21,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-21",
+								children: "Protection of Members, Officers, and Directors"
+							})
+						}),
+						/* @__PURE__ */ jsx("li", {
+							value: 22,
+							children: /* @__PURE__ */ jsx("a", {
+								href: "#bylaw-1-article-22",
+								children: "Interpretation"
+							})
+						})
+					] }),
+					/* @__PURE__ */ jsx("h3", { children: "By-Law 2" }),
+					/* @__PURE__ */ jsx("ol", { children: /* @__PURE__ */ jsx("li", {
+						value: 1,
+						children: /* @__PURE__ */ jsx("a", {
+							href: "#bylaw-2-article-1",
+							children: "Banking Resolution"
+						})
+					}) })
+				]
+			}),
+			/* @__PURE__ */ jsxs("section", {
+				className: "ByLaws__bylaw",
+				children: [
+					/* @__PURE__ */ jsx("h2", { children: "By-Law 1" }),
+					/* @__PURE__ */ jsx("p", {
+						className: "ByLaws__intro",
+						children: "Letters Patent incorporating Guelph Lawn Bowling Club granted on Sept. 10, 2001. These by-laws relate generally to the transaction of the business and affairs of Guelph Lawn Bowling Club Inc."
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-1",
+						className: "ByLaws__article",
+						children: [/* @__PURE__ */ jsx("h3", { children: "Article 1: Name" }), /* @__PURE__ */ jsxs("div", {
+							className: "ByLaws__clause",
+							children: [/* @__PURE__ */ jsx("span", {
+								className: "ByLaws__number",
+								children: "1.1"
+							}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "Be it enacted and is hereby enacted as a by-law of Guelph Lawn Bowling Club Inc. hereinafter called the “Club”." }) })]
+						})]
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-2",
+						className: "ByLaws__article",
+						children: [/* @__PURE__ */ jsx("h3", { children: "Article 2: Head Office" }), /* @__PURE__ */ jsxs("div", {
+							className: "ByLaws__clause",
+							children: [/* @__PURE__ */ jsx("span", {
+								className: "ByLaws__number",
+								children: "2.1"
+							}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Head Office of the Club shall be in the City of Guelph, in the County of Wellington, the Province of Ontario, and at such a place therein as the directors of the Club may from time to time decide. Currently at the Club House at 114 Gordon St., Guelph." }) })]
+						})]
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-3",
+						className: "ByLaws__article",
+						children: [/* @__PURE__ */ jsx("h3", { children: "Article 3: Purpose" }), /* @__PURE__ */ jsxs("div", {
+							className: "ByLaws__clause",
+							children: [/* @__PURE__ */ jsx("span", {
+								className: "ByLaws__number",
+								children: "3.1"
+							}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "To promote recreation, fellowship, enjoyment, and competitive sportsmanship through the sport of lawn bowling and any other compatible recreational sport as authorized by the general membership." }) })]
+						})]
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-4",
+						className: "ByLaws__article",
+						children: [/* @__PURE__ */ jsx("h3", { children: "Article 4: Affiliation" }), /* @__PURE__ */ jsxs("div", {
+							className: "ByLaws__clause",
+							children: [/* @__PURE__ */ jsx("span", {
+								className: "ByLaws__number",
+								children: "4.1"
+							}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "This Club shall be affiliated with the Ontario Lawn Bowls Association (OLBA)." }) })]
+						})]
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-5",
+						className: "ByLaws__article",
+						children: [
+							/* @__PURE__ */ jsx("h3", { children: "Article 5: Membership" }),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "5.1"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "A member is a person who has paid their membership dues in full." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "5.2"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The amount of the membership dues will be set by The Board when City of Guelph and OLBA fees are known." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "5.3"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "Fees shall be paid to the Treasurer of the Club." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "5.4"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Membership Cycle runs from the date on which a member’s application for membership is accepted until June First of the following calendar year." }) })]
+							})
+						]
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-6",
+						className: "ByLaws__article",
+						children: [/* @__PURE__ */ jsx("h3", { children: "Article 6: Harassment/Abuse" }), /* @__PURE__ */ jsxs("div", {
+							className: "ByLaws__clause",
+							children: [/* @__PURE__ */ jsx("span", {
+								className: "ByLaws__number",
+								children: "6.1"
+							}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Club promotes an abuse-free, trusting environment in accordance with the OLBA’s Code of Conduct and its Harassment Policy for the general membership." }) })]
+						})]
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-7",
+						className: "ByLaws__article",
+						children: [
+							/* @__PURE__ */ jsx("h3", { children: "Article 7: Revocation of Membership" }),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "7.1"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "Any member whose conduct on the Club premises, or elsewhere, which is considered by the Directors to be unbecoming of the character of the Club, or who willfully commits a breach or violation of any of the Club’s by-laws, or regulations will receive a disciplinary warning letter from The Board." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "7.2"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "Any member, after receiving a disciplinary warning letter, may have their membership revoked by a two-thirds (⅔) vote of The Board if the member’s conduct on the Club premises or elsewhere continues to be unbecoming of the Club or character of the Club." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "7.3"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "Such member(s) may make a written application for reinstatement to The Board and may be reinstated by the disciplinary Committee of The Board." }) })]
+							})
+						]
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-8",
+						className: "ByLaws__article",
+						children: [/* @__PURE__ */ jsx("h3", { children: "Article 8: Alcoholic Beverages" }), /* @__PURE__ */ jsxs("div", {
+							className: "ByLaws__clause",
+							children: [/* @__PURE__ */ jsx("span", {
+								className: "ByLaws__number",
+								children: "8.1"
+							}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "Alcoholic beverages must not be brought into the Club by members or guests in compliance with the Ontario Liquor Control Act and regulations and the license Agreement with the City of Guelph, and members must adhere to such laws. If the Club incurs any penalty or liability by reason of a breach of these provisions by a member or member’s guest, such member shall indemnify the Club." }) })]
+						})]
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-9",
+						className: "ByLaws__article",
+						children: [
+							/* @__PURE__ */ jsx("h3", { children: "Article 9: Board of Directors" }),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "9.1"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The affairs of the Club shall be managed by a Board of Directors consisting of the following officers: President, Vice-President, and Treasurer, and a Secretary and up to three directors. The Board has the power to add members as required." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "9.2"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "All Directors shall be elected annually for a one (1) year term from the date of the Annual General. Each Director may stand for re-election if so nominated." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "9.3"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Past President is a non-voting, ex-officio member of The Board." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "9.4"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Vice-President shall assume and act in the role as President until a new President is elected if the elected President is unable to act for whatever reason. The Board has the authority to fill any vacancy that may occur. The members filling vacant positions must be elected, if nominated, at the next Annual General Meeting." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "9.5"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Past President of the Club, or another person or persons not on The Board appointed by The Board, becomes the Nominating Committee. The Nominating Committee shall prepare a slate of nominees for the election of Directors to The Board, having first secured consent of each nominee, and present the slate at the Annual General Meeting. Individual members may self–nominate. Additional nominations may be proposed by any member provided they have the consent of the nominee. The election of The Board of Directors shall be chaired by the Nominating Committee." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "9.6"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "All members eligible to vote are eligible to run to be a Board member and are eligible to hold any position on The Board." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "9.7"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "Individuals elected to The Board are not elected to a specific role." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "9.8"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "At the first meeting after the election of The Board, directors elected to The Board shall elect the following officers: President, Vice-President, and Treasurer as well as the Secretary." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "9.9"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "All records of the Club, including the bookkeeping records, tournament books, minute book are the property of the Club and shall be handed over by the outgoing officers to their successors within thirty (30) calendar days of the conclusion of their role. ." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "9.10"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Board shall approve annual financial statements that relate to the time period that began immediately after the end of the last completed financial year and ended not more than six months before the annual general meeting." }) })]
+							})
+						]
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-10",
+						className: "ByLaws__article",
+						children: [
+							/* @__PURE__ */ jsx("h3", { children: "Article 10: Board Meetings" }),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "10.1"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "Regular or special meetings of the Directors may be held at the call of the President or by the Vice-President or by any three members of The Board, by giving at least two days’ notice." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "10.2"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "Fifty percent (50%) plus one (1). members of The Board of Directors shall constitute a Quorum. The Past President is not counted in the determination of quorum." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "10.3"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "There shall be a minimum of eight (8) meetings of The Board of Directors during the year." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "10.4"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Board of Directors shall plan policy but not take action on major matters without the approval of a majority of the members present at a general meeting." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "10.5"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "Questions arising at any meeting of The Board shall be decided by a majority of votes. For greater clarity, the president can only cast one vote." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "10.6"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "A Board member may, if all the directors of the corporation consent, participate in a meeting of the directors or of a committee of directors by telephonic or electronic means that permits all participants to communicate adequately with each other during the meeting. A director so participating in a meeting is deemed for the purposes of this Act to be present at the meeting." }) })]
+							})
+						]
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-11",
+						className: "ByLaws__article",
+						children: [
+							/* @__PURE__ */ jsx("h3", { children: "Article 11: Duties of Office Holders" }),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "11.1"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The President shall preside at all Board meetings of the Club, sign all instruments that require presidential signature, perform all duties incident to the presidential office, and have such other powers and duties as may from time to time be assigned. The President shall exercise the general supervision and control of all affairs of the Club and be an ex-officio member of all committees. The President does not have a vote at committee meetings and is not included in any determination of quorum of the committee." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "11.2"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Vice-President shall sign such contract, document or instrument in writing as require their signature and shall have and perform all powers incident to their office and such powers and duties as may from time to time be assigned to them by The Board of Directors or a general meeting of members. The Vice-President, in the absence or of the inability or refusal of the President to act on instructing of The Board of Directors and/or a general meeting of members, shall be vested with all the powers and shall perform the duties of the President." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "11.3"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "In that both the President and the Vice-President are absent or unable to perform their duties, the other Directors shall appoint one or more of their members to perform the duties of President or Vice-President." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "11.4"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Secretary shall: (a) conduct the Club’s correspondence; (b) retrieve and distribute correspondence received at the Club’s mailing address; (c) record the proceedings, deliberations and decisions at the Annual General Meeting and other meetings of the members and meetings of The Board of Directors." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "11.5"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "When warranted, an Assistant Secretary may be appointed and shall: (a) assist the Secretary in their duties;" }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "11.6"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Treasurer shall: (a) be responsible for the care and custody of the financial assets of the Club as directed by The Board; (b) receive and disperse all funds; (c) keep records of the Club’s financial transactions; (d) provide an accurate account of all monies received and expended as requested by The Board; (e) present a financial statement the Club’s finances at the Annual General Meeting; (f) maintain an inventory of the physical assets of the Club." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "11.7"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Board has the discretion to request an audit or other financial review deemed appropriate." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "11.8"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "It is the duty of each Director to represent The Board’s policies, views, and programs in their dealings with the members of the Club." }) })]
+							})
+						]
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-12",
+						className: "ByLaws__article",
+						children: [/* @__PURE__ */ jsx("h3", { children: "Article 12: Authority" }), /* @__PURE__ */ jsxs("div", {
+							className: "ByLaws__clause",
+							children: [/* @__PURE__ */ jsx("span", {
+								className: "ByLaws__number",
+								children: "12.1"
+							}), /* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsx("p", { children: "The Board of Directors shall manage all property and business affairs of the Club, set the annual membership fee, and have power:" }), /* @__PURE__ */ jsxs("ol", {
+								type: "a",
+								children: [
+									/* @__PURE__ */ jsx("li", { children: "To appoint and remove any employee of the Club, prescribe duties, fix compensation, and require security for the faithful discharge of duties, if deemed advisable." }),
+									/* @__PURE__ */ jsx("li", { children: "To enact rules, policies, procedures, and guidelines for the management and operation of the Club." }),
+									/* @__PURE__ */ jsx("li", { children: "To do all such things as will be for the benefit of the Club in conformity with the By-Laws and License Agreement with the City of Guelph and the OLBA." }),
+									/* @__PURE__ */ jsx("li", { children: "To refuse or rescind membership in the Club for just cause." })
+								]
+							})] })]
+						})]
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-13",
+						className: "ByLaws__article",
+						children: [
+							/* @__PURE__ */ jsx("h3", { children: "Article 13: Signing Officers" }),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "13.1"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "Any two of President, Vice-President, Secretary, Treasurer shall sign all deeds, documents and contracts and other instruments requiring execution by the Club. For expenditures over Two Thousand Dollars ($2 000.00), the signature of at least one of the President or Vice-President is required. For Expenditures over Ten Thousand Dollars ($10 000.00) the signature of both the President and Vice President are required. Expenditures in excess of Ten Thousand Dollars ($10 000.00) require the passing of a motion at a meeting of The Board of Directors." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "13.2"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "Any license agreement, deeds, contracts, or other multi-year agreements between the Club and any other entity must be signed by the President and Vice-President." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "13.3"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Board may also direct, by special resolution, the signing of any such document or instrument by another member of The Board in the event that the President, Vice-President, Secretary, and/or Treasurer are unable to sign the document." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "13.4"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Club shall prepare and retain records including, the articles and bylaws, and any amendments; the minutes of any meetings of members and member committees, minutes of Board meetings and any Board committee meeting, resolutions, a register of officers, directors and members, and adequate financial records on a quarterly basis that enable directors to ascertain the financial position of the club with reasonable accuracy. Other documents as defined in the Not-For Profit Corporations Act must also be retained." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "13.5"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "Financial records must be retained for six (6) years at the head office or other place approved by The Board." }) })]
+							})
+						]
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-14",
+						className: "ByLaws__article",
+						children: [/* @__PURE__ */ jsx("h3", { children: "Article 14: Remuneration of Officers, Directors, and Chairpersons" }), /* @__PURE__ */ jsxs("div", {
+							className: "ByLaws__clause",
+							children: [/* @__PURE__ */ jsx("span", {
+								className: "ByLaws__number",
+								children: "14.1"
+							}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "All officers, directors, and chairpersons, shall serve without any remuneration and no officer, director or chairperson shall directly or indirectly receive any profit from the position. Any officer, director or chairperson may be reimbursed for reasonable expenses incurred in the performance of the person’s duties if a detailed vendor receipt is submitted." }) })]
+						})]
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-15",
+						className: "ByLaws__article",
+						children: [
+							/* @__PURE__ */ jsx("h3", { children: "Article 15: Committees" }),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "15.1"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Board of Directors may appoint any committee they deem necessary and may appoint any additional committees they deem necessary." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "15.2"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "Members of the Club who are not on The Board are eligible to serve on committees." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "15.3"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "Non-members of the Club having specific expertise may be appointed as ex-officio members of any committee from time to time." }) })]
+							})
+						]
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-16",
+						className: "ByLaws__article",
+						children: [
+							/* @__PURE__ */ jsx("h3", { children: "Article 16: General Meeting" }),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "16.1"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Annual General Meeting of the members of the Club shall be held at a time and on a day as directed by The Board of Directors but not later than the 30th day of October. The meeting shall receive reports of the executive, elect officers and directors as required and elect or appoint such others as are necessary for the proper conduct of the Club’s affairs, and transact all business that may properly come before the meeting. Any reports." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "16.2"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Spring General Meeting of the members of the Club shall be held at a time and place on a day after the Spring meeting of the OLBA in every year as directed by The Board of Directors but not later than May 31st. The meeting shall receive reports of The Board for the events scheduled for the current year and transact all business that may properly come before the meeting." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "16.3"
+								}), /* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsx("p", { children: "Special general meetings of the members may be called:" }), /* @__PURE__ */ jsxs("ol", {
+									type: "a",
+									children: [
+										/* @__PURE__ */ jsx("li", { children: "by the President or Vice President" }),
+										/* @__PURE__ */ jsx("li", { children: "by resolution of The Board" }),
+										/* @__PURE__ */ jsx("li", { children: "on written request to the Board by at least 25 per cent of active, full members of the Club." }),
+										/* @__PURE__ */ jsx("li", { children: "The request or resolution shall specify the nature of the business to be brought before the Special General Meeting and no other business than that stated in the notice of meeting shall be transacted. Day, time, and place of all special general meetings shall be decided by the Board but must occur within Forty-Five (45) calendar days of receiving the request or resolution." })
+									]
+								})] })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "16.4"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "Notice of the date, time, and place for holding general meetings of members including annual and special meetings shall be given by The Board at least ten days prior to each member by mail or phone or e-mail and by posting on the Club bulletin Board, Social Media Account(s), and Website." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "16.5"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "At all Annual General and Special meetings of the Club, the presence of 15 per cent of full members in good standing shall constitute a quorum." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "16.6"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "All members in good standing that are 18 or older on the date of the vote have the right to vote. At a spring general meeting, anyone who was a member for the previous year’s lawn bowling season or who has paid their membership fees for the current year. Is eligible to vote. For a fall general meeting, anyone who is a member for the current season is eligible to vote." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "16.7"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The omission to give notice or non-receipt of notice, by any member(s) shall not invalidate any resolution/motion passed or procedure taken." }) })]
+							})
+						]
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-17",
+						className: "ByLaws__article",
+						children: [/* @__PURE__ */ jsx("h3", { children: "Article 17: Extraordinary Expense" }), /* @__PURE__ */ jsxs("div", {
+							className: "ByLaws__clause",
+							children: [/* @__PURE__ */ jsx("span", {
+								className: "ByLaws__number",
+								children: "17.1"
+							}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "Each and every proposed addition, renovation, or major repair to Club property or equipment, but excluding normal operating expenses within the approved Annual Budget, which individually amount to Ten Thousand Dollars ($10 000.00) or more in the fiscal year, shall require the approval of the majority of the members present at a General Meeting before the property or equipment is acquired or before the work is undertaken." }) })]
+						})]
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-18",
+						className: "ByLaws__article",
+						children: [/* @__PURE__ */ jsx("h3", { children: "Article 18: Amendments" }), /* @__PURE__ */ jsxs("div", {
+							className: "ByLaws__clause",
+							children: [/* @__PURE__ */ jsx("span", {
+								className: "ByLaws__number",
+								children: "18.1"
+							}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Board can recommend at any time an amendment or suspension of any Article of the By-Laws, which must be approved at a General Meeting of the members." }) })]
+						})]
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-19",
+						className: "ByLaws__article",
+						children: [/* @__PURE__ */ jsx("h3", { children: "Article 19: Fiscal Year" }), /* @__PURE__ */ jsxs("div", {
+							className: "ByLaws__clause",
+							children: [/* @__PURE__ */ jsx("span", {
+								className: "ByLaws__number",
+								children: "19.1"
+							}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The fiscal year of the Club shall terminate on the 30 day of April each year or on such other date, as the Directors shall, by resolution, from time to time determine." }) })]
+						})]
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-20",
+						className: "ByLaws__article",
+						children: [
+							/* @__PURE__ */ jsx("h3", { children: "Article 20: Reserve Fund" }),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "20.1"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Board may from time to time set aside sums as they deem fit to meet contingencies for repairing, improving and maintaining any of the property of the Club, replacing wasting assets, and for such other purposes as The Board shall, in their absolute discretion, think conducive to the interests of the Club, and may invest the several sums so set aside for such investments and dispose of all or any part thereof for the benefit of the Club, and may divide the reserve fund into such special funds as they may deem advisable in the business of the Club without being bound to keep same separate from other assets." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "20.2"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Board may also carry forward to the accounts of the succeeding year or years any net income or balance of net income which they shall not have reserved." }) })]
+							})
+						]
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-21",
+						className: "ByLaws__article",
+						children: [
+							/* @__PURE__ */ jsx("h3", { children: "Article 21: Protection of Members, Officers, and Directors" }),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "21.1"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "Members shall not, as such, be held answerable to or accountable for any act, default, obligation, or liability of the Club, or for any engagement, claim, payment, loss, injury, transaction, matter or thing relating to or connected with the Club." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "21.2"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Officers and Directors, for the time being, of the Club shall not be under any duty or responsibility in respect of any contract, act or transaction entered in the name or on behalf of the Club, except such as shall have been submitted to and authorized or approved by The Board." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "21.3"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "No Officer or Director of the Club shall be liable for the acts, receipts, neglects or default of any Officer or Director or employee, or for any loss, damage or expense happening to the Club through the insufficiency of title to any property acquired by the Club, or for or on behalf of the Club or for the insufficiency or deficiency of any security in or upon which any of the money of or belonging to the Club shall be placed out of or invested on behalf of the Club, or for the loss or damage from bankruptcy, insolvency to tortious act of any person, firm or corporation with whom or which any monies, securities or effects shall be lodged or deposited or for any loss, damage or misfortune whatever may happen in office or trust or in relation thereto, unless the same shall happen by or through their own wrongful and willful act or through their own willful neglect or default." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "21.4"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "Every Officer or Director of the Club and their heirs, executors and administrators, and estate and effects, respectively, shall, from time to time and at all times, be indemnified and save harmless, out of the funds of the Club, from and against: (i) all costs, charges and expenses whatsoever which the Officer or Director sustains or incurs in or about any actions, suit or proceedings which is brought, commenced or prosecuted against them in respect of any act, deed, matter or thing whatsoever made, done or permitted by them in or about the execution of the duties of their office, and (ii) all other costs, charges and expenses which he sustains or incurs in or about or in relation to the affairs thereof, except costs, charges or expenses occasioned be their own willful neglect or default." }) })]
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "ByLaws__clause",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "ByLaws__number",
+									children: "21.5"
+								}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "If any Officer or Director of the Club shall be employed by or shall perform services for the Club otherwise than as an Officer or Director or shall be a member of a firm or shareholder, Director or Officer of a company which is employed by or performs services for the Club, this shall not disentitle such Officer or Director or such firm or company, as the case may be, from receiving proper remuneration for such services." }) })]
+							})
+						]
+					}),
+					/* @__PURE__ */ jsxs("section", {
+						id: "bylaw-1-article-22",
+						className: "ByLaws__article",
+						children: [/* @__PURE__ */ jsx("h3", { children: "Article 22: Interpretation" }), /* @__PURE__ */ jsxs("div", {
+							className: "ByLaws__clause",
+							children: [/* @__PURE__ */ jsx("span", {
+								className: "ByLaws__number",
+								children: "22.1"
+							}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "In this By-law and all other By-Laws of the Club, words importing the singular number only shall include the plural and vice versa; words importing the masculine gender shall include all genders, “Board” shall mean Board of Directors of the Club; Articles of Incorporation” shall include Supplementary Letters of Incorporation, the Not-for-Profit Corporations Act; as amended from time to time or any act that may hereafter be substituted therefore." }) })]
+						})]
+					})
+				]
+			}),
+			/* @__PURE__ */ jsxs("section", {
+				className: "ByLaws__bylaw",
+				children: [/* @__PURE__ */ jsx("h2", { children: "By-Law 2" }), /* @__PURE__ */ jsxs("section", {
+					id: "bylaw-2-article-1",
+					className: "ByLaws__article",
+					children: [/* @__PURE__ */ jsx("h3", { children: "Article 1: Banking Resolution" }), /* @__PURE__ */ jsxs("div", {
+						className: "ByLaws__clause",
+						children: [/* @__PURE__ */ jsx("span", {
+							className: "ByLaws__number",
+							children: "1.1"
+						}), /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", { children: "The Board has the responsibility for determining the official depository or depositories for the Club’s funds." }) })]
+					})]
+				})]
+			}),
+			/* @__PURE__ */ jsx("footer", {
+				className: "ByLaws__footer",
+				children: "Guelph Lawn Bowling Club Inc., 114 Gordon St., Guelph, ON N1H 4H6"
+			})
+		]
+	});
+});
+// src/assets/membership_form.pdf
+var membership_form_default = "/assets/membership_form-DQTI5u46.pdf";
+// src/assets/waiver_adult.pdf
+var waiver_adult_default = "/assets/waiver_adult-DNa_42TR.pdf";
+// src/pages/Join/Join.tsx
+var Join_exports = /* @__PURE__ */ __exportAll({ default: () => Join_default });
+var Join_default = UNSAFE_withComponentProps(function Join() {
+	return /* @__PURE__ */ jsx("div", {
+		className: "Join",
+		children: /* @__PURE__ */ jsxs(CardContainer, { children: [
+			/* @__PURE__ */ jsxs(Card, {
+				color: "blue",
+				children: [/* @__PURE__ */ jsx(CardTitle, {
+					styles: "bold large",
+					children: "2026 Season Fees"
+				}), /* @__PURE__ */ jsxs(CardContent, {
+					styles: "center",
+					children: ["(2027 fees TBA)", /* @__PURE__ */ jsxs(CardContainer, { children: [
+						/* @__PURE__ */ jsxs(Card, {
+							color: "blue",
+							styles: "frost",
+							children: [/* @__PURE__ */ jsx(CardTitle, {
+								styles: "bold large",
+								children: "Adult"
+							}), /* @__PURE__ */ jsxs(CardContent, { children: [
+								/* @__PURE__ */ jsx("p", {
+									className: "Join__price",
+									children: "$190"
+								}),
+								/* @__PURE__ */ jsx("p", { children: "Includes OLBA & District 7 fee" }),
+								/* @__PURE__ */ jsx("p", {
+									className: "Join__note",
+									children: "Children and grandchildren (age 5–17) of adult members are automatically included as members!"
+								})
+							] })]
+						}),
+						/* @__PURE__ */ jsxs(Card, {
+							color: "blue",
+							styles: "frost",
+							children: [/* @__PURE__ */ jsx(CardTitle, {
+								styles: "bold large",
+								children: "Young Adult (18–25)"
+							}), /* @__PURE__ */ jsxs(CardContent, { children: [/* @__PURE__ */ jsx("p", {
+								className: "Join__price",
+								children: "$100"
+							}), /* @__PURE__ */ jsx("p", { children: "Includes OLBA & District 7 fee" })] })]
+						}),
+						/* @__PURE__ */ jsxs(Card, {
+							color: "blue",
+							styles: "frost",
+							children: [/* @__PURE__ */ jsx(CardTitle, {
+								styles: "bold large",
+								children: "Pay to Play"
+							}), /* @__PURE__ */ jsxs(CardContent, { children: [
+								/* @__PURE__ */ jsx("p", {
+									className: "Join__price",
+									children: "$10"
+								}),
+								/* @__PURE__ */ jsx("p", { children: "Applies to future membership" }),
+								/* @__PURE__ */ jsx("p", {
+									className: "Join__note",
+									children: "Max 5 plays per season"
+								})
+							] })]
+						}),
+						/* @__PURE__ */ jsxs(Card, {
+							color: "blue",
+							styles: "frost",
+							children: [/* @__PURE__ */ jsx(CardTitle, {
+								styles: "bold large",
+								children: "Private Event"
+							}), /* @__PURE__ */ jsxs(CardContent, { children: [/* @__PURE__ */ jsx("p", {
+								className: "Join__price",
+								children: "$20 per person"
+							}), /* @__PURE__ */ jsx("p", {
+								className: "Join__note",
+								children: "Event must be scheduled in advance"
+							})] })]
+						}),
+						/* @__PURE__ */ jsxs(Card, {
+							color: "blue",
+							styles: "frost",
+							children: [/* @__PURE__ */ jsx(CardTitle, {
+								styles: "bold large",
+								children: "Learn to Bowl"
+							}), /* @__PURE__ */ jsxs(CardContent, { children: [
+								/* @__PURE__ */ jsx("p", {
+									className: "Join__price",
+									children: "$10"
+								}),
+								/* @__PURE__ */ jsx("p", { children: "Applies to future membership" }),
+								/* @__PURE__ */ jsx("p", {
+									className: "Join__note",
+									children: "Max 3 plays per season"
+								})
+							] })]
+						}),
+						/* @__PURE__ */ jsxs(Card, {
+							color: "blue",
+							styles: "frost",
+							children: [/* @__PURE__ */ jsx(CardTitle, {
+								styles: "bold large",
+								children: "Open Bowl Mondays"
+							}), /* @__PURE__ */ jsxs(CardContent, { children: [
+								/* @__PURE__ */ jsx("p", {
+									className: "Join__price",
+									children: "Free"
+								}),
+								/* @__PURE__ */ jsx("p", { children: "Play with a supervising member" }),
+								/* @__PURE__ */ jsx("p", {
+									className: "Join__note",
+									children: "Max 3 plays per season"
+								})
+							] })]
+						})
+					] })]
+				})]
+			}),
+			/* @__PURE__ */ jsxs(Card, {
+				color: "blue",
+				children: [/* @__PURE__ */ jsx(CardTitle, {
+					styles: "bold large",
+					children: "Joining is Easy"
+				}), /* @__PURE__ */ jsxs(CardContent, {
+					styles: "left",
+					children: [
+						/* @__PURE__ */ jsx("p", { children: "New and returning members can bring their payment and completed membership form to the club house during the season. Don’t forget to read and fill out the insurance waiver. We will gladly receive your forms and payment via email or in person at the club." }),
+						/* @__PURE__ */ jsx("br", {}),
+						/* @__PURE__ */ jsx("a", {
+							className: "center",
+							href: "mailto:guelphlbcsecretary@gmail.com",
+							children: "guelphlbcsecretary@gmail.com"
+						}),
+						/* @__PURE__ */ jsx("br", {}),
+						/* @__PURE__ */ jsx("p", { children: "If you’re a returning member who has already completed an insurance waiver, you only need to submit the membership form." }),
+						/* @__PURE__ */ jsx("br", {}),
+						/* @__PURE__ */ jsx("a", {
+							className: "center",
+							href: membership_form_default,
+							target: "_blank",
+							rel: "noreferrer",
+							children: "2026 Membership Form"
+						}),
+						/* @__PURE__ */ jsx("a", {
+							className: "center",
+							href: waiver_adult_default,
+							target: "_blank",
+							rel: "noreferrer",
+							children: "Adult Insurance Waiver"
+						})
+					]
+				})]
+			}),
+			/* @__PURE__ */ jsxs(Card, {
+				color: "blue",
+				children: [/* @__PURE__ */ jsx(CardTitle, {
+					styles: "bold large",
+					children: "New Members"
+				}), /* @__PURE__ */ jsxs(CardContent, {
+					styles: "left",
+					children: [
+						/* @__PURE__ */ jsxs("p", { children: [
+							"Feel free to drop by for Open Bowl Mondays at 7pm (just ask for Blake) or book an appointment by emailing ",
+							/* @__PURE__ */ jsx("a", {
+								href: "mailto:guelphlbcevents@gmail.com",
+								children: "guelphlbcevents@gmail.com"
+							}),
+							"."
+						] }),
+						/* @__PURE__ */ jsx("br", {}),
+						/* @__PURE__ */ jsx("p", { children: "So, what are you waiting for? If you haven’t already joined, give it a try. You’re welcome to come out a time or two to try lawn bowling. Your best bet is to visit us on an open bowling night. We’ve got lots of enthusiastic members who will be happy to introduce you to the game." })
+					]
+				})]
+			}),
+			/* @__PURE__ */ jsxs(Card, {
+				color: "blue",
+				children: [/* @__PURE__ */ jsx(CardTitle, {
+					styles: "bold large",
+					children: "No Equipment Needed"
+				}), /* @__PURE__ */ jsxs(CardContent, {
+					styles: "left",
+					children: [
+						/* @__PURE__ */ jsx("p", { children: "All you have to do is come out and play. We have a supply of lawn bowls for members and guests to use. It’s that easy! Just don’t forget sunscreen, a hat, and something non-alcoholic to keep hydrated." }),
+						/* @__PURE__ */ jsx("br", {}),
+						/* @__PURE__ */ jsx("p", { children: "We do, however, ask bowlers to wear flat, soft-sole shoes to play. We prefer club members wear shoes that are worn for lawn bowling only as opposed to street shoes." })
+					]
+				})]
+			})
+		] })
+	});
+});
 // src/pages/NotFound/NotFound.tsx
 var NotFound_exports = /* @__PURE__ */ __exportAll({ default: () => NotFound_default });
 var NotFound_default = UNSAFE_withComponentProps(function NotFound() {
@@ -977,9 +2072,9 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/root-Bt55McBA.js",
+			"module": "/assets/root-Cr6LNJxh.js",
 			"imports": ["/assets/jsx-runtime-BKd12lFt.js"],
-			"css": ["/assets/root-CFaDE_T-.css"],
+			"css": ["/assets/root-Ct3kQyGY.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -998,9 +2093,9 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/Home-DJYUuzfK.js",
-			"imports": ["/assets/jsx-runtime-BKd12lFt.js", "/assets/Cards-uBknCf-f.js"],
-			"css": ["/assets/Cards-CsmwuFKx.css"],
+			"module": "/assets/Home-d6hY7PNt.js",
+			"imports": ["/assets/jsx-runtime-BKd12lFt.js", "/assets/Cards-CCudXcij.js"],
+			"css": ["/assets/Cards-BLheqFGF.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -1019,9 +2114,9 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/WeeklyEvents-CtvJ1bAD.js",
-			"imports": ["/assets/jsx-runtime-BKd12lFt.js", "/assets/Cards-uBknCf-f.js"],
-			"css": ["/assets/Cards-CsmwuFKx.css"],
+			"module": "/assets/WeeklyEvents-jmz35Zf3.js",
+			"imports": ["/assets/jsx-runtime-BKd12lFt.js", "/assets/Cards-CCudXcij.js"],
+			"css": ["/assets/Cards-BLheqFGF.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -1040,9 +2135,9 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/GroupEvents-B3OEh2mE.js",
-			"imports": ["/assets/jsx-runtime-BKd12lFt.js", "/assets/Cards-uBknCf-f.js"],
-			"css": ["/assets/Cards-CsmwuFKx.css"],
+			"module": "/assets/GroupEvents-B3PDuRZh.js",
+			"imports": ["/assets/jsx-runtime-BKd12lFt.js", "/assets/Cards-CCudXcij.js"],
+			"css": ["/assets/Cards-BLheqFGF.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -1061,9 +2156,9 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/Sponsors-BrfTy6k5.js",
-			"imports": ["/assets/jsx-runtime-BKd12lFt.js", "/assets/Cards-uBknCf-f.js"],
-			"css": ["/assets/Sponsors-BL82C8a3.css", "/assets/Cards-CsmwuFKx.css"],
+			"module": "/assets/Sponsors-BpUTzxBn.js",
+			"imports": ["/assets/jsx-runtime-BKd12lFt.js", "/assets/Cards-CCudXcij.js"],
+			"css": ["/assets/Cards-BLheqFGF.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -1103,9 +2198,9 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/Contact-DkiwyFt3.js",
-			"imports": ["/assets/jsx-runtime-BKd12lFt.js", "/assets/Cards-uBknCf-f.js"],
-			"css": ["/assets/Contact-Bdc5Dhvt.css", "/assets/Cards-CsmwuFKx.css"],
+			"module": "/assets/Contact-D8vzv5ah.js",
+			"imports": ["/assets/jsx-runtime-BKd12lFt.js", "/assets/Cards-CCudXcij.js"],
+			"css": ["/assets/Contact-Bdc5Dhvt.css", "/assets/Cards-BLheqFGF.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -1124,9 +2219,93 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/Tournaments-B3_Ib0fZ.js",
-			"imports": ["/assets/jsx-runtime-BKd12lFt.js", "/assets/Cards-uBknCf-f.js"],
-			"css": ["/assets/Cards-CsmwuFKx.css"],
+			"module": "/assets/Tournaments-D_83IACQ.js",
+			"imports": ["/assets/jsx-runtime-BKd12lFt.js", "/assets/Cards-CCudXcij.js"],
+			"css": ["/assets/Cards-BLheqFGF.css"],
+			"clientActionModule": void 0,
+			"clientLoaderModule": void 0,
+			"clientMiddlewareModule": void 0,
+			"hydrateFallbackModule": void 0
+		},
+		"pages/District/District": {
+			"id": "pages/District/District",
+			"parentId": "root",
+			"path": "district",
+			"index": void 0,
+			"caseSensitive": void 0,
+			"hasAction": false,
+			"hasLoader": false,
+			"hasClientAction": false,
+			"hasClientLoader": false,
+			"hasClientMiddleware": false,
+			"hasDefaultExport": true,
+			"hasErrorBoundary": false,
+			"module": "/assets/District-B1PKiwlZ.js",
+			"imports": ["/assets/jsx-runtime-BKd12lFt.js", "/assets/Cards-CCudXcij.js"],
+			"css": ["/assets/Cards-BLheqFGF.css"],
+			"clientActionModule": void 0,
+			"clientLoaderModule": void 0,
+			"clientMiddlewareModule": void 0,
+			"hydrateFallbackModule": void 0
+		},
+		"pages/Executive/Executive": {
+			"id": "pages/Executive/Executive",
+			"parentId": "root",
+			"path": "executive",
+			"index": void 0,
+			"caseSensitive": void 0,
+			"hasAction": false,
+			"hasLoader": false,
+			"hasClientAction": false,
+			"hasClientLoader": false,
+			"hasClientMiddleware": false,
+			"hasDefaultExport": true,
+			"hasErrorBoundary": false,
+			"module": "/assets/Executive-dIBDLsUD.js",
+			"imports": ["/assets/jsx-runtime-BKd12lFt.js", "/assets/Cards-CCudXcij.js"],
+			"css": ["/assets/Cards-BLheqFGF.css"],
+			"clientActionModule": void 0,
+			"clientLoaderModule": void 0,
+			"clientMiddlewareModule": void 0,
+			"hydrateFallbackModule": void 0
+		},
+		"pages/ByLaws/ByLaws": {
+			"id": "pages/ByLaws/ByLaws",
+			"parentId": "root",
+			"path": "bylaws",
+			"index": void 0,
+			"caseSensitive": void 0,
+			"hasAction": false,
+			"hasLoader": false,
+			"hasClientAction": false,
+			"hasClientLoader": false,
+			"hasClientMiddleware": false,
+			"hasDefaultExport": true,
+			"hasErrorBoundary": false,
+			"module": "/assets/ByLaws-CoQx2v4p.js",
+			"imports": ["/assets/jsx-runtime-BKd12lFt.js"],
+			"css": ["/assets/ByLaws-D4c4OSF6.css"],
+			"clientActionModule": void 0,
+			"clientLoaderModule": void 0,
+			"clientMiddlewareModule": void 0,
+			"hydrateFallbackModule": void 0
+		},
+		"pages/Join/Join": {
+			"id": "pages/Join/Join",
+			"parentId": "root",
+			"path": "join",
+			"index": void 0,
+			"caseSensitive": void 0,
+			"hasAction": false,
+			"hasLoader": false,
+			"hasClientAction": false,
+			"hasClientLoader": false,
+			"hasClientMiddleware": false,
+			"hasDefaultExport": true,
+			"hasErrorBoundary": false,
+			"module": "/assets/Join-Bn3o-9Ad.js",
+			"imports": ["/assets/jsx-runtime-BKd12lFt.js", "/assets/Cards-CCudXcij.js"],
+			"css": ["/assets/Join-Chw22d65.css", "/assets/Cards-BLheqFGF.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -1145,17 +2324,17 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/NotFound-B9l8d0cy.js",
+			"module": "/assets/NotFound-B9fy4R_k.js",
 			"imports": ["/assets/jsx-runtime-BKd12lFt.js"],
-			"css": ["/assets/NotFound-x1XGuNl0.css"],
+			"css": [],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
 			"hydrateFallbackModule": void 0
 		}
 	},
-	"url": "/assets/manifest-5fd1c491.js",
-	"version": "5fd1c491",
+	"url": "/assets/manifest-cdf553da.js",
+	"version": "cdf553da",
 	"sri": void 0
 };
 // \0virtual:react-router/server-build
@@ -1177,7 +2356,11 @@ var prerender = [
 	"/sponsors",
 	"/history",
 	"/contact",
-	"/tournaments"
+	"/tournaments",
+	"/district",
+	"/executive",
+	"/bylaws",
+	"/join"
 ];
 var routeDiscovery = { "mode": "initial" };
 var publicPath = "/";
@@ -1246,6 +2429,38 @@ var routes = {
 		index: void 0,
 		caseSensitive: void 0,
 		module: Tournaments_exports
+	},
+	"pages/District/District": {
+		id: "pages/District/District",
+		parentId: "root",
+		path: "district",
+		index: void 0,
+		caseSensitive: void 0,
+		module: District_exports
+	},
+	"pages/Executive/Executive": {
+		id: "pages/Executive/Executive",
+		parentId: "root",
+		path: "executive",
+		index: void 0,
+		caseSensitive: void 0,
+		module: Executive_exports
+	},
+	"pages/ByLaws/ByLaws": {
+		id: "pages/ByLaws/ByLaws",
+		parentId: "root",
+		path: "bylaws",
+		index: void 0,
+		caseSensitive: void 0,
+		module: ByLaws_exports
+	},
+	"pages/Join/Join": {
+		id: "pages/Join/Join",
+		parentId: "root",
+		path: "join",
+		index: void 0,
+		caseSensitive: void 0,
+		module: Join_exports
 	},
 	"pages/NotFound/NotFound": {
 		id: "pages/NotFound/NotFound",

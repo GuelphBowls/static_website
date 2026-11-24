@@ -1,6 +1,7 @@
+// filename: components/Cards/CardTitle/CardTitle.tsx
 import type { ReactNode } from 'react';
 import './CardTitle.scss';
-import { bem } from '@/components/Cards/CardDataTypes';
+import  bem from '@/util/bem';
 import { useCardColor } from '../CardColorContext';
 
 type CardTitleProps = {

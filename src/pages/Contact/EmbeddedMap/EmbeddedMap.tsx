@@ -1,4 +1,4 @@
-import './EmbeddedMap.scss'
+// filename: pages/Contact/EmbeddedMap/EmbeddedMap.tsx
 
 type EmbeddedMapProps = {
 	src: string;

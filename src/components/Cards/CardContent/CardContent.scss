@@ -1,15 +1,14 @@
+// filename: components/Cards/CardContent/CardContent.scss
 .CardContent {
 	display: flex;
 	flex-direction: column;
 
 	&--left {
 		text-align: left;
-		align-items: left;
 	}
 
 	&--right {
 		text-align: right;
-		align-items: right;
 	}
 
 	&--center {

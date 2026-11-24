@@ -1,5 +1,6 @@
 // filename: styles/index.scss
-@use "@/styles/_layout" as *;
+@use "@/styles/_media" as *;
+@use "@/styles/_layout";
 
 :root {
     --root-width: 1000px;

@@ -1,6 +1,6 @@
-import './Contact.scss'
+// filename: pages/Contact/Contact.tsx
+import EmbeddedMap from './EmbeddedMap'
 import { Card, CardTitle, CardContent } from '@/components/Cards'
-import EmbeddedMap from './EmbeddedMap/EmbeddedMap'
 import CardContainer from '@/components/Cards/CardContainer'
 import facebookLogo from '@/assets/facebook.avif'
 import instagramLogo from '@/assets/instagram.avif'

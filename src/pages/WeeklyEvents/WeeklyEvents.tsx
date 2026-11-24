@@ -1,4 +1,4 @@
-// src/config/events.tsx
+// filename: pages/WeeklyEvents/WeeklyEvents.tsx
 import { Card, CardTitle, CardContent, CardContainer } from '@/components/Cards'
 
 export default function WeeklyEvents() {

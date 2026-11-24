@@ -1,8 +1,7 @@
-// src/content/groupEvents.tsx
+// filename: pages/Sponsors/Sponsors.tsx
 import { Card, CardTitle, CardContent, CardContainer } from '@/components/Cards'
-import '@/components/Cards/UserStyles.scss'
 
-export default function GroupEvents() {
+export default function Sponsors() {
 	return (
 		<CardContainer>
 			<Card color="blue">
@@ -11,7 +10,7 @@ export default function GroupEvents() {
 					<Card color="white">
 						<CardContent styles="center">
 							<h2>2026 Sponsors</h2>
-							<ul className='Align-left'>
+							<ul className='Align--left'>
 								<li className='Align-left'>Brothers Brewing</li>
 								<li>Royal City Brewery</li>
 								<li>Wellington Brewery</li>
@@ -41,7 +40,7 @@ export default function GroupEvents() {
 						We have affordable sponsorship categories that give you local publicity. Show your community spirit. Since 1838 we’ve been a part of our community. Sponsorship helps us to continue providing a sport enjoyed by all ages and abilities. Please support local lawn bowling.
 					</p>
 					<br />
-					<a href="https://www.guelphlawnbowling.com/contact">
+					<a href="/contact">
 						Contact us for more information.
 					</a>
 				</CardContent>

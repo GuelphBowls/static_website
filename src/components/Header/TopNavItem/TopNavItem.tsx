@@ -2,7 +2,7 @@
 import { useContext } from 'react'
 import type { MenuData } from '@/config/menu'
 import { TopNavContext } from '@/components/Header/TopNav/TopNavContext'
-import TopNavContents from '@/components/Header/TopNavContents/TopNavContents'
+import TopNavContents from '@/components/Header/TopNavContents'
 import LinkIcon from '@/components/LinkIcon'
 import './TopNavItem.scss'
 

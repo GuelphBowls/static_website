@@ -1,6 +1,7 @@
+// filename: components/Cards/CardContent/CardContent.tsx
 import type { ReactNode } from 'react';
 import './CardContent.scss'
-import { bem } from '../CardDataTypes';
+import  bem from '@/util/bem';
 
 type CardContentProps = {
 	styles?: string

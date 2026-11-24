@@ -1,3 +1,4 @@
+// filename: pages/History/History.tsx
 import './History.scss'
 import historyImg from '@/assets/history.avif'
 

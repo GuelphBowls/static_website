@@ -1,5 +1,4 @@
 // filename: components/Footer/Footer.tsx
-// components/Footer/Footer.tsx
 import reactLogo from '@/assets/react.svg'
 import viteLogo from '@/assets/vite.svg'
 import './Footer.scss'

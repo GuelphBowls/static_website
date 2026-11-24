@@ -1,4 +1,4 @@
-// filename: components/Header/TopNav/Hamburger/Hamburger.tsx
+// filename: components/Header/Hamburger/Hamburger.tsx
 import './Hamburger.scss'
 
 interface HamburgerProps {

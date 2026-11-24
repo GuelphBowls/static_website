@@ -1,10 +1,12 @@
-// src/root.tsx
+// filename: root.tsx
+
+import type { ReactNode } from 'react'
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import '@/styles/index.scss'
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({ children }: { children: ReactNode }) {
     return (
         <html lang="en">                                      
             <head>

@@ -1,3 +1,4 @@
+// filename: pages/ByLaws/ByLaws.tsx
 import './ByLaws.scss'
 
 export default function ByLaws() {

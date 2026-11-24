@@ -1,4 +1,5 @@
-@use "@/styles/_layout" as *;
+// filename: components/Header/TopNavItems/TopNavItems.scss
+@use "@/styles/_media" as *;
 
 .TopNav__items {
 	top: 100%;

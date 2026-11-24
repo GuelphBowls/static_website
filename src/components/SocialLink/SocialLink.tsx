@@ -1,3 +1,4 @@
+// filename: components/SocialLink/SocialLink.tsx
 import "./SocialLink.scss";
 
 type SocialLinkProps = {

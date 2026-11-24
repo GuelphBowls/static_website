@@ -1,3 +1,4 @@
+// filename: components/LinkIcon/LinkIcon.tsx
 import './LinkIcon.scss'
 
 export default function LinkIcon({ size = 16 }: { size?: number }) {
