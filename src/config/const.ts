@@ -1,0 +1,1 @@
+export const CALENDAR_URL = "https://calendar.google.com/calendar/embed?src=guelphlbcevents%40gmail.com&ctz=America%2FToronto"

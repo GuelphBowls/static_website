@@ -19,6 +19,7 @@ export const menu: MenuData[] = [
     {
         label: 'Schedule',
         contents: [            
+            { label: 'Calendar', href: '/calendar' },
             { label: 'Weekly Activities', href: '/weekly' },
             { label: 'Tournaments', href: '/tournaments' },
             { label: 'District', href: '/district' },
